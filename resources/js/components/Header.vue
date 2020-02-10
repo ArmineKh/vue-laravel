@@ -41,8 +41,11 @@
     </div>
   </div>
 </nav>
+
 </template>
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Header',
   methods:{
@@ -52,9 +55,10 @@ export default {
     }
   },
   computed:{
-    currentUser(){
-      return this.$store.getters.currentUser
-    }
-  }
+    ...mapGetters(['currentUser'])
+    // currentUser(){
+    //   return this.$store.getters.currentUser
+    // }
+  },
 }
 </script>

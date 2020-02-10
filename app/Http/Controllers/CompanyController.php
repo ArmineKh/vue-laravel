@@ -41,9 +41,9 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCompanieRequest $request)
+    public function store(Request $request)
     {
-        //
+        // var_dump($request);
         //
         $logoName = '';
        if ($request->file('logo'))
@@ -51,13 +51,15 @@ class CompanyController extends Controller
            $logoName = $request->file('logo')->store('/public');
            $logoName = str_replace('public', 'storage', $logoName);
        }
-       $company = Company::create(['name' => $request->input('name'),
-       'email' => $request->input('email'),
-       'logo' => $logoName,
-       'website' => $request->input('website')]);
+       $company = new Company();
+       $company->name = $request['name'];
+       $company->email = $request['email'];
+       $company->logo = $logoName;
+       $company->website = $request['website'];
 
-   // return redirect()->route('company.index')->with('info','Company Added Successfully');
-    return response()->json($company, 200);
+    //
+    var_dump($company);
+    return response()->json(['company' => $company]);
     }
 
 
@@ -73,7 +75,6 @@ class CompanyController extends Controller
         //
         $company = Company::find($id);
         return response()->json($company, 200);
-        // return view('company.edit',['company'=> $company]);
     }
 
     /**
@@ -83,7 +84,7 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateCompanieRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
         $logoName = '';
@@ -99,8 +100,7 @@ class CompanyController extends Controller
       'logo' => $logoName,
       'website' => $request->input('website')]);
 
-     // return redirect()->route('company.index')->with('info','Company Updated Successfully');
-     return response(null, Response::HTTP_OK);
+     return response()->json($comp, 200);
     }
 
     /**
@@ -114,7 +114,6 @@ class CompanyController extends Controller
         //
         $company = Company::find($id);
       $company->delete();
-      // return redirect()->route('company.index');
       return response(null, Response::HTTP_OK);
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row form-group">
-      <router-link :to="'/create'" class="link btn btn-primary">
+      <router-link :to="'/company/create'" class="link btn btn-primary">
             Create Company
         </router-link>
     </div>
@@ -12,8 +12,8 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Email</th>
             <th>Logo</th>
+            <th>Email</th>
             <th>Web site</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -28,8 +28,8 @@
               </td>
               <td>{{ company.email }}</td>
               <td>{{ company.website }}</td>
-              <td><a href="#" class = "btn btn-info" data-id="company.id" @click="update(company)">Edit</a></td>
-              <td><a href="#" class = "btn btn-danger"  @click="deleteCompany(company.id)">Delete</a></td>
+              <td><button class = "btn btn-info" :data-id="company.id" @click="edit">Edit</button></td>
+              <td><button class = "btn btn-danger" :data-id="company.id"  @click="deleteComp">Delete</button></td>
 
             </tr>
           </template>
@@ -42,38 +42,41 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex';
 
 export default {
+  name: 'Company',
   data(){
     return {
-      // pagination: {}
+      companyes: []
     }
   },
-  mounted() {
-    this.getResults();
+  created(){
+    axios.get('/api/company').then((response) => {this.companyes = response.data;});
   },
+
   computed: {
-    ...mapGetters(['companies','getUser']),
+    // ...mapGetters(['companyes']),
+
+  // getCompanies() {
+  //   return this.$store.getters.companyes;
+  // },
+
   },
   methods: {
-    deleteCompany(e) {
+    ...mapActions( ["deleteCompany"]),
+
+
+    deleteComp(e) {
       const id = +e.target.getAttribute('data-id');
-      this.$store.dispatch('deleteCompany', id).then(res => {
-        // console.log(res)
-        if(this.companies.length < 1){
-          this.getResults(this.pagination.last_page - 1);
-          // console.log(this.companies.length)
-        }
-      }).catch(err => console.log(err))
+      console.log(id);
+
+      this.deleteCompany(id);
+      // this.$store.dispatch('deleteCompany', id).then(res => {
+      // }).catch(err => console.log(err))
     },
-    getResults(page = 1) {
-      this.$store.dispatch('getCompanies', 'api/companies?page=' + page).then(res => {
-        delete res.data;
-        this.pagination = res
-        // console.log(this.pagination)
-      }).catch(err => console.log(err))
-    },
-    update(e) {
+
+    edit(e) {
       const id = +e.target.getAttribute('data-id');
       this.$router.push(`update/${id}`)
     }

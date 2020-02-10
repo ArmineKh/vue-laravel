@@ -52,6 +52,7 @@
 <script>
 import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 import {registerUser} from '../partials/auth';
+import { mapGetters } from 'vuex';
 
   export default {
     data(){
@@ -81,9 +82,10 @@ import {registerUser} from '../partials/auth';
       }
     },
     computed:{
-      regError(){
-        return this.$store.getters.regError
-      }
+      ...mapGetters(['regError'])
+      // regError(){
+      //   return this.$store.getters.regError
+      // }
     }
   }
 </script>

@@ -22,10 +22,15 @@ Route::group(['prefix' => 'auth'], function ($router) {
   Route::post('me', 'AuthController@me');
 
 });
+Route::get('/company', 'CompanyController@index');
+Route::post('/company', 'CompanyController@store');
+Route::get('/company/{id}/edit', 'CompanyController@edit');
+Route::put('/company/{id}', 'CompanyController@update');
+Route::delete('/company/{id}', 'CompanyController@destroy');
 
-Route::resource('company', 'CompanyController', [
-      'show' => false,
-]);
+// Route::resource('company', 'CompanyController', [
+//       'show' => false,
+// ]);
 Route::resource('employe', 'EmployeController', [
       'show' => false,
 ]);

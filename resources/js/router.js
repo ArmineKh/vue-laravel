@@ -6,9 +6,14 @@ import Company from './components/Company.vue';
 import CreateCompany from './components/CreateCompany.vue';
 import Emloye from './components/Emloye.vue';
 import CreateEmloye from './components/CreateEmloye.vue';
+import EditCompany from './components/EditCompany.vue';
 
+import Vuex from 'vuex';
+import Vue from 'vue'
 
-export const routes = [
+Vue.use(Vuex);
+
+export const routes  = [
   {
     path: '/',
     name: 'home',
@@ -38,6 +43,16 @@ export const routes = [
     path: '/company/create',
     name: 'createCompany',
     component: CreateCompany,
+  },
+  {
+    path: `/company/:id`,
+    name: 'deleteCompany',
+    component: Company,
+  },
+  {
+    path: `/company/update/:id`,
+    name: 'editCompany',
+    component: EditCompany,
   },
   {
     path: '/employe',

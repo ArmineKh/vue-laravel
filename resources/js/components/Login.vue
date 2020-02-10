@@ -33,6 +33,8 @@
 <script>
 import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 import {login} from '../partials/auth';
+import { mapGetters } from 'vuex';
+
 export default {
   data(){
     return {
@@ -57,12 +59,13 @@ export default {
     }
   },
   computed:{
-    authError(){
-      return this.$store.getters.authError
-    },
-    registeredUser(){
-      return this.$store.getters.registeredUser
-    }
+    ...mapGetters(['authError', 'registeredUser'])
+    // authError(){
+    //   return this.$store.getters.authError
+    // },
+    // registeredUser(){
+    //   return this.$store.getters.registeredUser
+    // }
   }
 }</script>
 <style scoped>

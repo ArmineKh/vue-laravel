@@ -1,13 +1,13 @@
 
 require('./bootstrap');
-import VueRouter from 'vue-router';
+window.Vue = require('vue');
 import Vuex from 'vuex';
-import {routes} from './routes.js';
-import storeData from './Store';
+import VueRouter from 'vue-router';
+import {routes} from './router.js';
+import store from './store';
 import Main from './components/Main.vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
-window.Vue = require('vue');
 window.VeeValidate = require('vee-validate');
 
 window.Vue.use(window.VeeValidate);
@@ -21,18 +21,11 @@ const router = new VueRouter({
   mode:'history'
 });
 
-const store = new Vuex.Store(storeData);
 
-// Axios.interceptors.response.use(null,(error) => {
-//   if (error.response.status == 401) {
-//     store.commit('logout');
-//     router.push('/login');
-//   }
-//   return Promise.reject(error);
-// })
 
 const app = new Vue({
     router,
     store,
     render: h => h(Main),
 }).$mount("#app");
+app.store = new Vuex.Store(store);
