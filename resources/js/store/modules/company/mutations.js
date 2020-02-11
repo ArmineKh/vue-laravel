@@ -7,6 +7,7 @@ export default {
   },
 
   addCompany(state, data){
+    // console.log(data);
     state.companiesList.push(data);
   },
   editCompany(state, data){

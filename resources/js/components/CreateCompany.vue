@@ -50,7 +50,8 @@ import { mapActions } from 'vuex';
 					logo: '',
 					website: '',
 
-				errors: {}
+				errors: {},
+         // token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 			}
 		},
 
@@ -69,8 +70,10 @@ import { mapActions } from 'vuex';
           logo: this.logo,
           website: this.website
         };
+        localStorage.setItem('jwtToken', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
           // console.log(data);
          this.addCompany(data);
+
 
 
             this.name = '';

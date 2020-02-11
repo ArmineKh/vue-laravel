@@ -1956,7 +1956,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1971,7 +1970,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     axios.get('/api/company').then(function (response) {
       _this.companyes = response.data;
-    });
+    }); // try {
+    //   const response = await axios.get('/api/company')
+    //   this.companyes = response.data
+    // } catch (e) {
+    //   this.errors.push(e)
+    // }
   },
   computed: {// ...mapGetters(['companyes']),
     // getCompanies() {
@@ -2058,7 +2062,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       email: '',
       logo: '',
       website: '',
-      errors: {}
+      errors: {} // token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["addCompany"]), {
@@ -2071,7 +2076,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: this.email,
         logo: this.logo,
         website: this.website
-      }; // console.log(data);
+      };
+      localStorage.setItem('jwtToken', document.querySelector('meta[name="csrf-token"]').getAttribute('content')); // console.log(data);
 
       this.addCompany(data);
       this.name = '';
@@ -61701,8 +61707,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   addCompany: function addCompany(_ref, data) {
     var commit = _ref.commit;
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/company/store').then(function (data) {
-      // console.log(data)
+    // console.log(data);
+    // axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwtToken');
+    var headers = {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+    };
+    console.log(headers);
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/company/store', data, {
+      headers: headers
+    }).then(function (data) {
+      console.log(data.data);
       commit('addCompany', data.data);
       _router_js__WEBPACK_IMPORTED_MODULE_0__["routes"].push({
         path: '/api/company'
@@ -61711,11 +61726,12 @@ __webpack_require__.r(__webpack_exports__);
       return console.log(err);
     });
   },
-  deleteCompany: function deleteCompany(ctx, id) {
+  deleteCompany: function deleteCompany(_ref2, id) {
+    var commit = _ref2.commit;
     console.log("hello from action");
-    return; // axios.delete(`/api/company/${id}`, id).then(response =>{
+    return; // axios.delete('/api/company/' + id, id).then(response =>{
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]('/api/company/' + id, id).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/company/".concat(id)).then(function (response) {
       _router_js__WEBPACK_IMPORTED_MODULE_0__["routes"].push({
         path: '/api/company'
       });
@@ -61725,7 +61741,14 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   editCompany: function editCompany(ctx, id) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/company/".concat(id, "/edit"), id);
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/company/update/".concat(id, "/"), id).then(function (response) {
+      _router_js__WEBPACK_IMPORTED_MODULE_0__["routes"].push({
+        path: '/api/company/update/' + id
+      });
+      commit('editCompany', data);
+    })["catch"](function (err) {
+      return reject(err);
+    });
   },
   updateCompany: function updateCompany(ctx, data) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/company/".concat(data.id), data.data);
@@ -61767,8 +61790,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // console.log(state);
 
+console.log(_state__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
   getters: _getters__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -61797,6 +61820,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   addCompany: function addCompany(state, data) {
+    // console.log(data);
     state.companiesList.push(data);
   },
   editCompany: function editCompany(state, data) {

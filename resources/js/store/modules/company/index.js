@@ -5,7 +5,7 @@ import mutations from './mutations'
 
 
 
-// console.log(state);
+console.log(state);
 export default {
   state,
   getters,

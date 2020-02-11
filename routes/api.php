@@ -24,7 +24,7 @@ Route::group(['prefix' => 'auth'], function ($router) {
 });
 Route::get('/company', 'CompanyController@index');
 Route::post('/company', 'CompanyController@store');
-Route::get('/company/{id}/edit', 'CompanyController@edit');
+Route::get('/company/update/{id}', 'CompanyController@edit');
 Route::put('/company/{id}', 'CompanyController@update');
 Route::delete('/company/{id}', 'CompanyController@destroy');
 

@@ -30,7 +30,6 @@
               <td>{{ company.website }}</td>
               <td><button class = "btn btn-info" :data-id="company.id" @click="edit">Edit</button></td>
               <td><button class = "btn btn-danger" :data-id="company.id"  @click="deleteComp">Delete</button></td>
-
             </tr>
           </template>
 
@@ -53,6 +52,12 @@ export default {
   },
   created(){
     axios.get('/api/company').then((response) => {this.companyes = response.data;});
+    // try {
+    //   const response = await axios.get('/api/company')
+    //   this.companyes = response.data
+    // } catch (e) {
+    //   this.errors.push(e)
+    // }
   },
 
   computed: {

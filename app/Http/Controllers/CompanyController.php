@@ -43,7 +43,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        // var_dump($request);
+        var_dump($request); die();
         //
         $logoName = '';
        if ($request->file('logo'))
@@ -58,7 +58,7 @@ class CompanyController extends Controller
        $company->website = $request['website'];
 
     //
-    var_dump($company);
+    // dd($company);
     return response()->json(['company' => $company]);
     }
 

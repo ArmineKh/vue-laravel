@@ -13,6 +13,9 @@
 
 // Auth::routes();
 
+// Route::post('api/company', 'CompanyController@store');
+
+
 Route::any('{any}', function () {
     return view('welcome');
 })->where('any', '.*');
