@@ -50,6 +50,8 @@ export default {
       this.$store.dispatch('login');
       login(this.$data.formLogin)
       .then(res => {
+        // console.log(res.access_token)
+        localStorage.setItem('Token', 'Bearer ' + res.access_token)
         this.$store.commit('loginSuccess', res);
         this.$router.push({path: '/dashboard'});
       })
@@ -59,13 +61,13 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['authError', 'registeredUser'])
-    // authError(){
-    //   return this.$store.getters.authError
-    // },
-    // registeredUser(){
-    //   return this.$store.getters.registeredUser
-    // }
+    ...mapGetters(['authError', 'registeredUser']),
+    authError(){
+      return this.$store.getters.authError
+    },
+    registeredUser(){
+      return this.$store.getters.registeredUser
+    }
   }
 }</script>
 <style scoped>

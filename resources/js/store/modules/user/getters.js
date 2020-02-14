@@ -3,9 +3,7 @@ export default    {
       return state.loading;
     },
     isLoggedin(state){
-      return ()=> {
-        return state.isLoggedin
-      };
+      return state.isLoggedin;
     },
     currentUser(state){
       return state.currentUser;
@@ -17,6 +15,6 @@ export default    {
       return state.reg_error;
     },
     registeredUser(state){
-      return state.registeredUser;
+      return state.currentUser;
     },
   };

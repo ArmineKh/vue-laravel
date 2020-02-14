@@ -1,6 +1,6 @@
 
 export default {
-    login(state){
+    LOGIN(state){
       state.loading = true;
       state.auth_error = null;
     },

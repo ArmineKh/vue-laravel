@@ -26,7 +26,9 @@ class CreateCompanieRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|',
-            'logo' => 'required'
+            'logo' => 'nullable|required'
+            'created_at' => 'nullable|date',
+            'updated_at' => 'nullable|date'
             // 'logo' => 'dimensions:max_width=11000,max_height=11000'
         ];
     }

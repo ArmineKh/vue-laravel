@@ -55,10 +55,10 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['currentUser'])
-    // currentUser(){
-    //   return this.$store.getters.currentUser
-    // }
+    ...mapGetters(['currentUser']),
+    currentUser(){
+      return this.$store.getters.currentUser
+    }
   },
 }
 </script>

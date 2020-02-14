@@ -2,15 +2,16 @@ export default {
   setCompanies(state, companies) {
     state.companiesList = companies
   },
-  deleteCompany(state, id) {
+  DELETE_COMPANY(state, id) {
     state.companiesList = state.companiesList.filter(el => el.id != id);
   },
 
-  addCompany(state, data){
-    // console.log(data);
-    state.companiesList.push(data);
+  ADD_COMPANY(state, payload){
+    // console.log(payload.data);
+    state.companiesList.push(payload.data);
+
   },
-  editCompany(state, data){
+  EDIT_COMPANY(state, data){
     state.companiesList = data;
   }
 

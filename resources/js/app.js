@@ -21,10 +21,8 @@ const router = new VueRouter({
   mode:'history'
 });
 
-
 const app = new Vue({
     router,
     store,
     render: h => h(Main),
 }).$mount("#app");
-app.store = new Vuex.Store(store);

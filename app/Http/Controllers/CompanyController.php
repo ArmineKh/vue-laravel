@@ -43,19 +43,21 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request); die();
+      var_dump($request); die();
+      // $request = $request->getContent();
+      // $request = json_decode($request, true);
         //
         $logoName = '';
-       if ($request->file('logo'))
+       if ($data->file('logo'))
        {
-           $logoName = $request->file('logo')->store('/public');
+           $logoName = $data->file('logo')->store('/public');
            $logoName = str_replace('public', 'storage', $logoName);
        }
        $company = new Company();
-       $company->name = $request['name'];
-       $company->email = $request['email'];
-       $company->logo = $logoName;
-       $company->website = $request['website'];
+       $company->name = $data['name'];
+       $company->email = $data['email'];
+       $company->logo = $data;
+       $company->website = $data['website'];
 
     //
     // dd($company);

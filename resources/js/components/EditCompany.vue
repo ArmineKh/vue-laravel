@@ -45,7 +45,7 @@
     import {mapActions} from 'vuex'
 
     export default {
-      name: 'EditCompany',
+      name: 'editCompany',
         data(){
             return {
                id: this.$route.params.id,
@@ -62,7 +62,7 @@
             ...mapGetters(['companyes']),
         },
         methods: {
-            ...mapActions( ["editCompany"]),
+            ...mapActions( ["updateCompany"]),
             onFileInputChange(e){
                 this.formData.logo = e.target.files[0];
 
@@ -75,7 +75,7 @@
                   logo: this.formData.logo,
                   website: this.formData.website
                 };
-                    this.editCompany(data);
+                    this.updateCompany(data);
             }
         }
     }

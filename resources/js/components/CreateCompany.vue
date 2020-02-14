@@ -35,6 +35,7 @@
 	            <button type="submit" class="btn btn-success">Save</button>
 	        </form>
     	</div>
+      <button @click = "changeRoute">Change route</button>
     </div>
 </template>
 
@@ -45,10 +46,11 @@ import { mapActions } from 'vuex';
 		data(){
 			return {
 
-					name: '',
-					email: '',
-					logo: '',
-					website: '',
+          name: '',
+          email: '',
+          logo: '',
+          website: '',
+
 
 				errors: {},
          // token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -56,6 +58,11 @@ import { mapActions } from 'vuex';
 		},
 
 		methods: {
+      changeRoute(){
+        this.$store.dispatch({
+          type:"changeRoute"
+        });
+      },
 
       ...mapActions( ["addCompany"]),
 
@@ -64,15 +71,19 @@ import { mapActions } from 'vuex';
 				this.logo = e.target.files[0];
 			},
 			addComp(){
-				let data = {
+				let company = {
           name: this.name,
           email: this.email,
           logo: this.logo,
           website: this.website
         };
-        localStorage.setItem('jwtToken', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
-          // console.log(data);
-         this.addCompany(data);
+        console.log(localStorage.getItem('Token'));
+        // localStorage.setItem('jwtToken', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
+          this.$store.dispatch({
+            type:"addCompany",
+            data: company
+          });
+         // this.addCompany(company);
 
 
 

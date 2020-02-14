@@ -27,7 +27,9 @@ class CreateEmployeeRequest extends FormRequest
           'name' => 'required',
           'lastname' => 'required',
           'company' => 'required|integer',
-          'email' => 'email'
+          'email' => 'email',
+          'created_at' => 'nullable|date',
+          'updated_at' => 'nullable|date'
       ];
     }
 }

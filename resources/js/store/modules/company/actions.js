@@ -10,43 +10,41 @@ export default {
   		}).catch(err => rej(err))
 
   },
-
-addCompany({commit}, data) {
-    // console.log(data);
-    // axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwtToken');
-    const headers = {
-  'Content-Type': 'multipart/form-data',
-  'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-}
-console.log(headers);
-
-
-  return axios.post('/api/company/store', data, {headers: headers})
-  .then((data) => {
-  console.log(data.data)
-  commit('addCompany', data.data);
-  routes.push({path:'/api/company'});
-}). catch((err) => console.log(err));
-
-
+  changeRoute({commit, state}){
+    // routes.push({path:'/api/dashboard'});
+    this.$router.push('/api/dashboard')
   },
 
-  deleteCompany({commit}, id) {
-    console.log("hello from action");
-    return
+addCompany({commit, state}, payload) {
+  console.log(payload.data);
+commit({
+  type:'ADD_COMPANY',
+  data: payload.data});
+routes.push({path:'/api/company'});
+// axios.post('/api/company/store', payload.data);
+axios.request({
+  url: '/api/company',
+  method: 'POST',
+  data: payload.data,
+  headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('Token'),
+            'Content-Type': 'application/json;charset=UTF-8'
+          }
+})
+  },
 
-    // axios.delete('/api/company/' + id, id).then(response =>{
-  axios.delete(`/api/company/${id}`).then(response =>{
-    routes.push({ path: '/api/company'});
-    commit('deleteCompany', data);
-  }).catch(err => reject(err))
+  deleteCompany ({commit}, id){
+    commit('DELETE_COMPANY', id);
+    axios.delete(`/api/company/${id}`);
+    routes.push({path:'/api/company'});
 
 
   },
   editCompany(ctx, id) {
+
     return axios.get(`/api/company/update/${id}/`, id).then(response =>{
+      commit('EDIT_COMPANY', data);
       routes.push({ path: '/api/company/update/' + id});
-      commit('editCompany', data);
     }).catch(err => reject(err));
   },
   updateCompany(ctx, data) {

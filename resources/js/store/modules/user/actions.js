@@ -1,5 +1,5 @@
 export default {
     login(context){
-      context.commit("login");
+      context.commit("LOGIN");
     }
   };

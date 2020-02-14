@@ -30,7 +30,9 @@ $user->name = $request->name;
 $user->email = $request->email;
 $user->password = bcrypt($request->password);
 $user->save();
-return response()->json(['user' => $user]);
+$token = auth()->login($user);
+return $this->respondWithToken($token);
+// return response()->json(['user' => $user]);
 }
 /**
 * Get a JWT via given credentials.

@@ -59,5 +59,20 @@ export const routes  = [
     name: 'employe',
     component: Emloye,
   },
+  {
+    path: '/employe/create',
+    name: 'createEmloye',
+    component: CreateEmloye,
+  },
+  {
+    path: `/employe/:id`,
+    name: 'deleteEmloye',
+    component: Emloye,
+  },
+  {
+    path: `/employe/update/:id`,
+    name: 'editEmloye',
+    // component: EditEmloye,
+  },
 
 ]

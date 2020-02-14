@@ -4,13 +4,16 @@ import user from './modules/user';
 import company from './modules/company';
 import employe from './modules/employe';
 
+var modules = {
+	user,
+	company,
+	//employe
+};
+
+// console.log(modules);
 
 Vue.use(Vuex);
 const store =  new Vuex.Store({
-	modules: {
-		user,
-		company,
-		employe
-	}
+	modules: modules,
 })
 export default store

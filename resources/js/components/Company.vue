@@ -28,7 +28,9 @@
               </td>
               <td>{{ company.email }}</td>
               <td>{{ company.website }}</td>
-              <td><button class = "btn btn-info" :data-id="company.id" @click="edit">Edit</button></td>
+              <td>
+                <button class = "btn btn-info" :data-id="company.id" @click="editComp">Edit</button>
+              </td>
               <td><button class = "btn btn-danger" :data-id="company.id"  @click="deleteComp">Delete</button></td>
             </tr>
           </template>
@@ -76,14 +78,14 @@ export default {
       const id = +e.target.getAttribute('data-id');
       console.log(id);
 
-      this.deleteCompany(id);
-      // this.$store.dispatch('deleteCompany', id).then(res => {
-      // }).catch(err => console.log(err))
+      // this.deleteCompany(id);
+      this.$store.dispatch("deleteCompany", id)
+
     },
 
-    edit(e) {
+    editComp(e) {
       const id = +e.target.getAttribute('data-id');
-      this.$router.push(`update/${id}`)
+      this.$router.push(`company/update/${id}`);
     }
   }
 }
