@@ -19,14 +19,14 @@
             <router-link to="/dashboard" class="nav-link">Dashboard</router-link>
           </li>
           <li >
-              <router-link :to="'/company'" class="nav-link">
-                Company
-              </router-link>
+            <router-link :to="'/company'" class="nav-link">
+              Company
+            </router-link>
           </li>
           <li >
-              <router-link :to="'/employe'" class="nav-link">
-                      Employ
-              </router-link>
+            <router-link :to="'/employe'" class="nav-link">
+              Employ
+            </router-link>
           </li>
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

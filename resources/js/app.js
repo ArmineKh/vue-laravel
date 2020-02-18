@@ -11,10 +11,11 @@ import axios from 'axios';
 window.VeeValidate = require('vee-validate');
 
 window.Vue.use(window.VeeValidate);
-Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 
+
+Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes,

@@ -1,53 +1,62 @@
-// import companyPartial from '../../../partials/company'
-import {routes} from '../../../router.js'
-import axios from 'axios'
+import {routes} from '../../../router.js';
+import axios from 'axios';
+
 export default {
-  getCompanies(ctx, url) {
-    return
 
-      axios.get('/api/company').then(response => {
-  			res(response);
-  		}).catch(err => rej(err))
-
-  },
-  changeRoute({commit, state}){
-    // routes.push({path:'/api/dashboard'});
-    this.$router.push('/api/dashboard')
-  },
-
-addCompany({commit, state}, payload) {
-  console.log(payload.data);
-commit({
-  type:'ADD_COMPANY',
-  data: payload.data});
-routes.push({path:'/api/company'});
-// axios.post('/api/company/store', payload.data);
-axios.request({
-  url: '/api/company',
-  method: 'POST',
-  data: payload.data,
-  headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('Token'),
-            'Content-Type': 'application/json;charset=UTF-8'
+  addCompany({commit, state}, payload) {
+    commit({
+      type:'ADD_COMPANY',
+      data: payload.data});
+      axios.request({
+        url: '/api/company',
+        method: 'POST',
+        data: payload.data,
+        config:{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': localStorage.getItem('Token'),
           }
-})
-  },
+        }
+      }).then(res=>{
+        console.log(res)
+      }).catch(err=>console.log(err))
+    },
 
-  deleteCompany ({commit}, id){
-    commit('DELETE_COMPANY', id);
-    axios.delete(`/api/company/${id}`);
-    routes.push({path:'/api/company'});
+    deleteCompany ({commit}, id){
+      console.log(this);
+      commit('DELETE_COMPANY', id);
+      axios.delete(`/api/company/${id}`);
+      routes.push({path:'/api/company'});
+
+    },
+
+    updateCompany({commit}, payload) {
+      // return axios.post(`/api/company/${data.id}`, data.data);
+      console.log(payload.data);
+
+      commit('EDIT_COMPANY', payload);
+
+      let  headers = {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': localStorage.getItem('Token'),
+        }
+
+      axios.put(`/api/company/${payload.id}`, {data: payload.data, headers: headers}).catch(err=>{console.log(err)});
+
+        // axios.request({
+        //   url: `/api/company/${payload.id}`,
+        //   method: 'PUT',
+        //   data: payload.data,
+        //   config:{
+        //     headers: {
+        //       'Content-Type': 'multipart/form-data',
+        //       'Authorization': localStorage.getItem('Token'),
+        //     }
+        //   }
+        // }).then(res=>{
+        //   // console.log(res.data.data)
+        // }).catch(err=>console.log(err))
 
 
-  },
-  editCompany(ctx, id) {
-
-    return axios.get(`/api/company/update/${id}/`, id).then(response =>{
-      commit('EDIT_COMPANY', data);
-      routes.push({ path: '/api/company/update/' + id});
-    }).catch(err => reject(err));
-  },
-  updateCompany(ctx, data) {
-    return axios.post(`/api/company/${data.id}`, data.data);
-  }
-}
+      }
+    }

@@ -2,15 +2,16 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import user from './modules/user';
 import company from './modules/company';
-import employe from './modules/employe';
+import employe from './modules/employe/index.js';
+
 
 var modules = {
 	user,
 	company,
-	//employe
+	employe,
 };
 
-// console.log(modules);
+console.log(modules);
 
 Vue.use(Vuex);
 const store =  new Vuex.Store({

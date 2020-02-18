@@ -2,11 +2,15 @@ import Home from './components/Home.vue';
 import Register from './components/Register.vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
+
 import Company from './components/Company.vue';
 import CreateCompany from './components/CreateCompany.vue';
-import Emloye from './components/Emloye.vue';
-import CreateEmloye from './components/CreateEmloye.vue';
 import EditCompany from './components/EditCompany.vue';
+
+import Employe from './components/Employe.vue';
+import CreateEmloye from './components/CreateEmloye.vue';
+import EditEmploye from './components/EditEmploye.vue';
+
 
 import Vuex from 'vuex';
 import Vue from 'vue'
@@ -34,6 +38,7 @@ export const routes  = [
     name: 'dashboard',
     component: Dashboard,
   },
+  /* *********   *******  */
   {
     path: '/company',
     name: 'company',
@@ -55,9 +60,15 @@ export const routes  = [
     component: EditCompany,
   },
   {
+    path: `/company/:id`,
+    name: 'updateCompany',
+    component: Company,
+  },
+  /* ********  ******* */
+  {
     path: '/employe',
     name: 'employe',
-    component: Emloye,
+    component: Employe,
   },
   {
     path: '/employe/create',
@@ -67,12 +78,17 @@ export const routes  = [
   {
     path: `/employe/:id`,
     name: 'deleteEmloye',
-    component: Emloye,
+    component: Employe,
   },
   {
     path: `/employe/update/:id`,
     name: 'editEmloye',
-    // component: EditEmloye,
+    component: EditEmploye,
+  },
+  {
+    path: `/employe/:id`,
+    name: 'updateEmloye',
+    component: Employe,
   },
 
 ]

@@ -1,102 +1,81 @@
 <template>
-    <div class="container">
-    	<div class="row justify-content-center">
-	        <form @submit.prevent="addComp">
-	            <div class="form-group">
-	            	<label>Name</label>
-	            	<input type="text" name="name" class="form-control" v-model="name" >
-	            </div>
-	            <template v-if="errors.name">
-					<p class="error" v-for="error in errors.name">{{error}}</p>
-	            </template>
+  <div class="container">
+    <div class="row justify-content-center">
+      <form @submit.prevent="addComp" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="name" class="form-control" v-model="name" required>
+        </div>
 
-	            <div class="form-group">
-	            	<label>Email</label>
-	            	<input type="text" name="email" class="form-control" v-model="email" >
-	            </div>
-	            <template v-if="errors.email">
-					<p class="error" v-for="error in errors.email">{{error}}</p>
-	            </template>
-	            <div class="form-group">
-	            	<label>Logo</label>
-	            	<div class="custom-file">
-	        			<input type="file" class="custom-file-input" id="inputGroupFile01"
-	          			aria-describedby="inputGroupFileAddon01" name="logo" @change="onFileInputChange">
-	        			<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-	      			</div>
-	            </div>
-	            <template v-if="errors.logo">
-					<p class="error" v-for="error in errors.logo">{{error}}</p>
-	            </template>
-	            <div class="form-group">
-	            	<label>Website</label>
-	            	<input type="text" name="website" class="form-control" v-model="website" >
-	            </div>
-	            <button type="submit" class="btn btn-success">Save</button>
-	        </form>
-    	</div>
-      <button @click = "changeRoute">Change route</button>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" name="email" class="form-control" v-model="email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Logo</label>
+          <div class="custom-file">
+            <input type="file"  class="custom-file-input" id="inputGroupFile01"
+            aria-describedby="inputGroupFileAddon01" name="logo"  v-on:change="onFileInputChange" required>
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Website</label>
+          <input type="text" name="website" class="form-control" v-model="website" required>
+        </div>
+        <button type="submit" class="btn btn-success" >Save</button>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 
-    export default {
-		data(){
-			return {
+export default {
+  data(){
+    return {
 
-          name: '',
-          email: '',
-          logo: '',
-          website: '',
+      name: '',
+      email: '',
+      logo: null,
+      website: '',
 
-
-				errors: {},
-         // token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-			}
-		},
-
-		methods: {
-      changeRoute(){
-        this.$store.dispatch({
-          type:"changeRoute"
-        });
-      },
-
-      ...mapActions( ["addCompany"]),
-
-
-			onFileInputChange(e){
-				this.logo = e.target.files[0];
-			},
-			addComp(){
-				let company = {
-          name: this.name,
-          email: this.email,
-          logo: this.logo,
-          website: this.website
-        };
-        console.log(localStorage.getItem('Token'));
-        // localStorage.setItem('jwtToken', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
-          this.$store.dispatch({
-            type:"addCompany",
-            data: company
-          });
-         // this.addCompany(company);
-
-
-
-            this.name = '';
-            this.email = '';
-            this.logo = '';
-            this.website = '';
-
-
-			   },
-
-
-
-		}
     }
+  },
+
+  methods: {
+
+    onFileInputChange(e){
+      this.logo = e.target.files[0] || e.dataTransfer.files[0];
+      console.log(this.logo);
+    },
+
+    addComp(){
+      const fd = new FormData();
+      fd.append('name', this.name);
+      fd.append('email', this.email);
+      fd.append('logo', this.logo);
+      fd.append('website', this.website);
+
+      let self = this.$router;
+
+      this.$store.dispatch({
+        type:"addCompany",
+        data: fd
+      }).then(res=>{
+        console.log(res)
+        self.push({path:'/company'});
+      }).catch(err=>console.log(err));
+
+      this.name = '';
+      this.email = '';
+      this.logo = '';
+      this.website = '';
+
+    },
+  },
+
+}
 </script>

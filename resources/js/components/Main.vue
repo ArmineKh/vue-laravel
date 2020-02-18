@@ -4,11 +4,9 @@
     <div class="content">
       <div class="row">
         <div class="col-sm-12">
-          <!-- <editCompany /> -->
+
         </div>
       </div>
-
-
       <router-view></router-view>
     </div>
   </div>

@@ -6,10 +6,6 @@
 
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12">
-      </div>
-    </div>
     <router-view></router-view>
   </div>
 </template>
@@ -29,10 +25,9 @@ export default {
 
   methods: {
     currentUser(){
-       return this.$store.getters.currentUser
+      return this.$store.getters.currentUser
     }
   }
-
 
 }
 </script>

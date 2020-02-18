@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row form-group">
       <router-link :to="'/company/create'" class="link btn btn-primary">
-            Create Company
-        </router-link>
+        Create Company
+      </router-link>
     </div>
     <div class="row">
       <div class="col-sm-12">
@@ -19,21 +19,19 @@
             <th>Delete</th>
 
           </tr>
-          <template v-for="company in companyes">
-            <tr class = "text-center" >
-              <td>{{ company.id }}</td>
-              <td>{{ company.name }}</td>
-              <td>
-                <img :src="company.logo" width="50px">
-              </td>
-              <td>{{ company.email }}</td>
-              <td>{{ company.website }}</td>
-              <td>
-                <button class = "btn btn-info" :data-id="company.id" @click="editComp">Edit</button>
-              </td>
-              <td><button class = "btn btn-danger" :data-id="company.id"  @click="deleteComp">Delete</button></td>
-            </tr>
-          </template>
+          <tr class = "text-center" v-for="company in companyes" :key="company.id" >
+            <td>{{ company.id }}</td>
+            <td>{{ company.name }}</td>
+            <td>
+              <img :src="company.logo" width="50px">
+            </td>
+            <td>{{ company.email }}</td>
+            <td>{{ company.website }}</td>
+            <td>
+              <button class = "btn btn-info" :data-id="company.id" @click="editComp">Edit</button>
+            </td>
+            <td><button  class = "btn btn-danger" :data-id="company.id"  @click="deleteComp">Delete</button></td>
+          </tr>
 
         </table>
       </div>
@@ -42,8 +40,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex';
+
 
 export default {
   name: 'Company',
@@ -53,39 +50,20 @@ export default {
     }
   },
   created(){
-    axios.get('/api/company').then((response) => {this.companyes = response.data;});
-    // try {
-    //   const response = await axios.get('/api/company')
-    //   this.companyes = response.data
-    // } catch (e) {
-    //   this.errors.push(e)
-    // }
+    axios.get('/api/company').then((response) => {this.companyes = response.data;})
   },
 
-  computed: {
-    // ...mapGetters(['companyes']),
-
-  // getCompanies() {
-  //   return this.$store.getters.companyes;
-  // },
-
-  },
   methods: {
-    ...mapActions( ["deleteCompany"]),
-
 
     deleteComp(e) {
       const id = +e.target.getAttribute('data-id');
-      console.log(id);
-
-      // this.deleteCompany(id);
-      this.$store.dispatch("deleteCompany", id)
-
+      this.$store.dispatch("deleteCompany", id);
+      location.reload(true);
     },
 
     editComp(e) {
       const id = +e.target.getAttribute('data-id');
-      this.$router.push(`company/update/${id}`);
+      this.$router.push(`/company/update/${id}`);
     }
   }
 }

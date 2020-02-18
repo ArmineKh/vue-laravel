@@ -12,101 +12,88 @@ use App\Employe;
 
 class EmployeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-        $employees = Employe::paginate(10);
-      // return view('employee.index',['employees'=>$employees]);
-      return response($employees->jsonSerialize(), Response::HTTP_OK);
+  /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function index()
+  {
+    //
+    $employees = Employe::all();
+    return response()->json($employees, 200);
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(CreateEmployeeRequest $request)
-    {
-      $employee = Employe::create(['name' => $request->input('name'),
-       'lastname' => $request->input('lastname'),
-       'company' => $request->input('company'),
-       'email' => $request->input('email'),
-       'phone' => $request->input('phone')]);
-
-    // return redirect()->route('employees.index')->with('info','Employee Added Successfully');
-    return response($employee->jsonSerialize(), Response::HTTP_CREATED);
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        $employee = Employee::find($id);
-        // return view('employee.edit',['employee'=> $employee]);
-        return response($employee->jsonSerialize(), Response::HTTP_OK);
+  }
 
 
-    }
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function store(Request $request)
+  {
+    //
+    $employee = new Employe();
+    $employee->firstname = $request['firstname'];
+    $employee->lastname = $request['lastname'];
+    $employee->department = $request['department'];
+    $employee->phone = $request['phone'];
+    $employee->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CreateEmployeeRequest $request, $id)
-    {
-        //
-        $employee = Employee::find($request->input('id'))
-        ->update(['name' => $request->input('name'),
-         'lastname' => $request->input('lastname'),
-         'company' => $request->input('company'),
-         'email' => $request->input('email'),
-         'phone' => $request->input('phone')]);
+    return response()->json($employee);
+  }
 
-        // return redirect()->route('employees.index')->with('info','Employee Updated Successfully');
-           return response(null, Response::HTTP_OK);
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        $employee = Employee::find($id);
-      $employee->delete();
-      // return redirect()->route('employees.index');
-      return response(null, Response::HTTP_OK);
+  /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function edit($id)
+  {
+    //
+    $employee = Employe::find($id);
+    return response()->json($employee, 200);
 
-    }
+
+  }
+
+  /**
+  * Update the specified resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function update(Request $request, $id)
+  {
+    //
+    $employee = Employe::find($id)
+    ->update([
+      'firstname' => $request->data['firstname'],
+      'lastname' => $request->data['lastname'],
+      'department' => $request->data['department'],
+      'phone' => $request->data['phone'],
+    ]);
+
+    return response()->json($employee, 200);
+  }
+
+  /**
+  * Remove the specified resource from storage.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function destroy($id)
+  {
+    //
+    $employee = Employe::find($id);
+    $employee->delete();
+    return response(null, Response::HTTP_OK);
+
+  }
 }

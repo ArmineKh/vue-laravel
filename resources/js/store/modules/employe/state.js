@@ -1,3 +1,3 @@
 export default {
-    employeList: null
+    employeList: []
 }

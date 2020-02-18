@@ -50,7 +50,6 @@ export default {
       this.$store.dispatch('login');
       login(this.$data.formLogin)
       .then(res => {
-        // console.log(res.access_token)
         localStorage.setItem('Token', 'Bearer ' + res.access_token)
         this.$store.commit('loginSuccess', res);
         this.$router.push({path: '/dashboard'});

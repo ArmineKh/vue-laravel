@@ -16,10 +16,10 @@ class Company extends Migration
         Schema::create('company', function (Blueprint $table) {
             //
           $table->bigIncrements('id');
-          $table->integer('employee_id');
+          $table->integer('employee_id')->nullable();
           $table->string('name');
           $table->string('email');
-          $table->string('logo');
+          $table->longText('logo');
           $table->string('website');
           $table->timestamps();
         });

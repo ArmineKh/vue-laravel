@@ -23,15 +23,24 @@ Route::group(['prefix' => 'auth'], function ($router) {
 
 });
 Route::get('/company', 'CompanyController@index');
-Route::post('/api/company', 'CompanyController@store');
+Route::post('/company', 'CompanyController@store');
 Route::get('/company/update/{id}', 'CompanyController@edit');
 Route::put('/company/{id}', 'CompanyController@update');
 Route::delete('/company/{id}', 'CompanyController@destroy');
+
+
+Route::get('/employe', 'EmployeController@index');
+Route::post('/employe', 'EmployeController@store');
+Route::get('/employe/update/{id}', 'EmployeController@edit');
+Route::put('/employe/{id}', 'EmployeController@update');
+Route::delete('/employe/{id}', 'EmployeController@destroy');
+
 
 // Route::resource('company', 'CompanyController', [
 //       'show' => false,
 // ]);
 
-Route::resource('employe', 'EmployeController', [
-      'show' => false,
-]);
+
+// Route::resource('employe', 'EmployeController', [
+//       'show' => false,
+// ]);
