@@ -2031,8 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onFileInputChange: function onFileInputChange(e) {
-      this.logo = e.target.files[0] || e.dataTransfer.files[0];
-      console.log(this.logo);
+      this.logo = e.target.files[0] || e.dataTransfer.files[0]; // console.log(this.logo);
     },
     addComp: function addComp() {
       var fd = new FormData();
@@ -2219,18 +2218,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'editCompany',
   mounted: function mounted() {
@@ -2256,44 +2243,19 @@ __webpack_require__.r(__webpack_exports__);
   computed: {},
   methods: {
     onFileInputChange: function onFileInputChange(e) {
-      this.logo = e.target.files[0];
-    },
-    uploadeLogo: function uploadeLogo() {
-      var logo = new FormData();
-      logo.append('logo', this.logo);
-      logo.append('_method', 'PUT');
-      var headers = {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': localStorage.getItem('Token')
-      };
-      axios.put("/api/company/".concat(this.$route.params.id), {
-        data: logo,
-        headers: headers
-      }).then(function (res) {
-        console.log(res.data);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+      this.logo = e.target.files[0] || e.dataTransfer.files[0];
     },
     edit: function edit() {
-      // const fd = new FormData();
-      // fd.append('name', this.name);
-      // fd.append('email', this.email);
-      // fd.append('logo', this.logo);
-      // fd.append('website', this.website);
-      // fd.append('_method', 'PUT');
-      var fd = {
-        name: this.name,
-        email: this.email,
-        // logo: this.logo,
-        website: this.website
-      };
+      var fd = new FormData();
+      fd.append('name', this.name);
+      fd.append('email', this.email);
+      fd.append('logo', this.logo);
+      fd.append('website', this.website);
       var self = this.$router;
       this.$store.dispatch('updateCompany', {
         data: fd,
         id: +this.$route.params.id
       }).then(function (res) {
-        // console.log(res.id);
         self.push({
           path: '/company'
         });
@@ -44080,6 +44042,33 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Change Logo")]),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "custom-file" }, [
+              _c("input", {
+                staticClass: "custom-file-input",
+                attrs: {
+                  type: "file",
+                  id: "inputGroupFile01",
+                  "aria-describedby": "inputGroupFileAddon01",
+                  name: "logo"
+                },
+                on: { change: _vm.onFileInputChange }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "custom-file-label",
+                  attrs: { for: "inputGroupFile01" }
+                },
+                [_vm._v("Choose file")]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
             _c("label", [_vm._v("Website")]),
             _vm._v(" "),
             _c("input", {
@@ -62347,8 +62336,8 @@ var modules = {
   user: _modules_user__WEBPACK_IMPORTED_MODULE_2__["default"],
   company: _modules_company__WEBPACK_IMPORTED_MODULE_3__["default"],
   employe: _modules_employe_index_js__WEBPACK_IMPORTED_MODULE_4__["default"]
-};
-console.log(modules);
+}; // console.log(modules);
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: modules
@@ -62366,10 +62355,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../router.js */ "./resources/js/router.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+// import {routes} from '../../../router.js';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   addCompany: function addCompany(_ref, payload) {
@@ -62379,7 +62367,7 @@ __webpack_require__.r(__webpack_exports__);
       type: 'ADD_COMPANY',
       data: payload.data
     });
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.request({
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.request({
       url: '/api/company',
       method: 'POST',
       data: payload.data,
@@ -62397,40 +62385,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   deleteCompany: function deleteCompany(_ref2, id) {
     var commit = _ref2.commit;
-    console.log(this);
     commit('DELETE_COMPANY', id);
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/company/".concat(id));
-    _router_js__WEBPACK_IMPORTED_MODULE_0__["routes"].push({
-      path: '/api/company'
-    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/company/".concat(id)); // routes.push({path:'/api/company'});
   },
   updateCompany: function updateCompany(_ref3, payload) {
     var commit = _ref3.commit;
-    // return axios.post(`/api/company/${data.id}`, data.data);
-    console.log(payload.data);
     commit('EDIT_COMPANY', payload);
-    var headers = {
-      'Content-Type': 'multipart/form-data',
-      'Authorization': localStorage.getItem('Token')
+    var config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': localStorage.getItem('Token')
+      }
     };
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/company/".concat(payload.id), {
-      data: payload.data,
-      headers: headers
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/company/".concat(payload.id), payload.data, {
+      emulateJSON: true
+    }).then(function (res) {
+      console.log(res);
     })["catch"](function (err) {
       console.log(err);
-    }); // axios.request({
-    //   url: `/api/company/${payload.id}`,
-    //   method: 'PUT',
-    //   data: payload.data,
-    //   config:{
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //       'Authorization': localStorage.getItem('Token'),
-    //     }
-    //   }
-    // }).then(res=>{
-    //   // console.log(res.data.data)
-    // }).catch(err=>console.log(err))
+    });
   }
 });
 

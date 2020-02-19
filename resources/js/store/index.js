@@ -11,7 +11,7 @@ var modules = {
 	employe,
 };
 
-console.log(modules);
+// console.log(modules);
 
 Vue.use(Vuex);
 const store =  new Vuex.Store({

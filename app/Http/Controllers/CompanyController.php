@@ -70,7 +70,8 @@ class CompanyController extends Controller
   */
   public function update(Request $request, $id)
   {
-    //
+    // dd($request->all());
+
     $logoName = '';
     if ($request->file('logo'))
     {
@@ -80,19 +81,11 @@ class CompanyController extends Controller
 
     $comp = Company::find($id)
     ->update([
-      'name' => $request->data['name'],
-      'email' => $request->data['email'],
-      // 'logo' => $logoName,
-      'website' => $request->data['website']
+      'name' => $request['name'],
+      'email' => $request['email'],
+      'logo' => $logoName,
+      'website' => $request['website']
     ]);
-
-    // dd($comp);
-
-    // $comp = Company::find($request->input('id'))
-    // ->update(['name' => $request->input('name'),
-    //  'email' => $request->input('email'),
-    //  'logo' => $logoName,
-    //  'website' => $request->input('website')]);
 
     return response()->json($comp, 200);
   }
