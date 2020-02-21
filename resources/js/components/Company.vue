@@ -54,7 +54,6 @@ export default {
   },
 
   methods: {
-
     deleteComp(e) {
       const id = +e.target.getAttribute('data-id');
       this.$store.dispatch("deleteCompany", id);

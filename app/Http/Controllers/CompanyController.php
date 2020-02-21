@@ -43,7 +43,12 @@ class CompanyController extends Controller
         $company->logo = $logoName;
         $company->save();
 
-        return new CompanyResource($company, 201);
+        if (Company::find($company->id)->first()) {
+            return new CompanyResource($company, 201);
+        }else{
+            return response(null, 400);
+        }
+
     }
 
 
@@ -80,8 +85,12 @@ class CompanyController extends Controller
             'email' => $request->email,
             'website' => $request->website
         ]);
-
-        return response(null, 201);
+        $company = Company::find($id)->first();
+        if ($company->updated_at) {
+            return response(null, 201);
+        }else{
+            return response(null, 204);
+        }
 
     }
 
@@ -95,7 +104,11 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         $company->delete();
+        if ($company->delete()) {
+            return response(null, 200);
+        }else {
+            return response(null, 400);
+        }
 
-        return response(null, 200);
     }
 }

@@ -28,7 +28,8 @@ class CreateCompanyRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|',
-            'logo' => 'nullable|required'
+            'logo' => 'nullable|required',
+            'website' => 'required',
         ];
     }
 }

@@ -2251,6 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
       fd.append('email', this.email);
       fd.append('logo', this.logo);
       fd.append('website', this.website);
+      fd.append('_method', 'put');
       var self = this.$router;
       this.$store.dispatch('updateCompany', {
         data: fd,
@@ -2336,6 +2337,7 @@ __webpack_require__.r(__webpack_exports__);
       data.append('lastname', this.lastname);
       data.append('department', this.department);
       data.append('phone', this.phone);
+      data.append('_method', 'put');
       var self = this.$router;
       this.$store.dispatch('updateEmploye', {
         data: data,
@@ -62358,9 +62360,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  addCompany: function addCompany(_ref, payload) {
+  getCompanyes: function getCompanyes(_ref) {
     var commit = _ref.commit,
         state = _ref.state;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/company').then(function (response) {
+      commit('SET_COMPANYES', response.data);
+    });
+  },
+  addCompany: function addCompany(_ref2, payload) {
+    var commit = _ref2.commit,
+        state = _ref2.state;
     commit({
       type: 'ADD_COMPANY',
       data: payload
@@ -62381,20 +62390,14 @@ __webpack_require__.r(__webpack_exports__);
       return console.log(err);
     });
   },
-  deleteCompany: function deleteCompany(_ref2, id) {
-    var commit = _ref2.commit;
+  deleteCompany: function deleteCompany(_ref3, id) {
+    var commit = _ref3.commit;
     commit('DELETE_COMPANY', id);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/company/".concat(id));
   },
-  updateCompany: function updateCompany(_ref3, payload) {
-    var commit = _ref3.commit;
+  updateCompany: function updateCompany(_ref4, payload) {
+    var commit = _ref4.commit;
     commit('EDIT_COMPANY', payload);
-    var config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': localStorage.getItem('Token')
-      }
-    };
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/company/".concat(payload.id), payload.data).then(function (res) {
       console.log(res);
     })["catch"](function (err) {
@@ -62438,7 +62441,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // console.log(state);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -62459,9 +62461,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // setCompanies(state, companies) {
-  //   state.companiesList = companies
-  // },
+  SET_COMPANYES: function SET_COMPANYES(state, companies) {
+    state.companiesList = companies;
+  },
   DELETE_COMPANY: function DELETE_COMPANY(state, id) {
     state.companiesList = state.companiesList.filter(function (el) {
       return el.id != id;
@@ -62471,7 +62473,6 @@ __webpack_require__.r(__webpack_exports__);
     state.companiesList.push(payload.data);
   },
   EDIT_COMPANY: function EDIT_COMPANY(state, data) {
-    // console.log(data.data);
     state.companiesList = data.data;
   }
 });
@@ -62502,10 +62503,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../router.js */ "./resources/js/router.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   addEmploye: function addEmploye(_ref, payload) {
@@ -62515,7 +62514,7 @@ __webpack_require__.r(__webpack_exports__);
       type: 'ADD_EMPLOYE',
       data: payload.data
     });
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.request({
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.request({
       url: '/api/employe',
       method: 'POST',
       data: payload.data,
@@ -62534,16 +62533,11 @@ __webpack_require__.r(__webpack_exports__);
   deleteEmploye: function deleteEmploye(_ref2, id) {
     var commit = _ref2.commit;
     commit('DELETE_EMPLOYE', id);
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/employe/".concat(id));
-    _router_js__WEBPACK_IMPORTED_MODULE_0__["routes"].push({
-      path: '/api/employe'
-    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/employe/".concat(id));
   },
   editEmploye: function editEmploye(ctx, id) {
-    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/employe/update/".concat(id, "/"), id).then(function (response) {
-      _router_js__WEBPACK_IMPORTED_MODULE_0__["routes"].push({
-        path: '/api/employe/update/' + id
-      });
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/employe/update/".concat(id, "/"), id).then(function (response) {
+      console.log(response);
     })["catch"](function (err) {
       return reject(err);
     });
@@ -62551,7 +62545,7 @@ __webpack_require__.r(__webpack_exports__);
   updateEmploye: function updateEmploye(_ref3, payload) {
     var commit = _ref3.commit;
     commit('EDIT_EMPLOYE', payload);
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/employe/".concat(payload.id), payload.data)["catch"](function (err) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/employe/".concat(payload.id), payload.data)["catch"](function (err) {
       console.log(err);
     });
   }

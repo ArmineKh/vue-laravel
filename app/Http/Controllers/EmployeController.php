@@ -35,7 +35,11 @@ class EmployeController extends Controller
     public function store(CreateEmployeeRequest $request)
     {
         $employee = Employe::create($request->all());
-        return response(null, 201);
+        if (Employe::find($employee->id)->first()) {
+            return response(null, 201);
+        } else{
+            return response(null, 400);
+        }
     }
 
 
@@ -61,7 +65,12 @@ class EmployeController extends Controller
     public function update(CreateEmployeeRequest $request, $id)
     {
         $employee = Employe::find($id)->update($request->all());
-        return response(null, 201);
+        $emp = Employe::find($id)->first();
+        if ($emp->updated_at) {
+            return response(null, 201);
+        } else{
+            return response(null, 400);
+        }
     }
 
     /**
@@ -74,7 +83,11 @@ class EmployeController extends Controller
     {
         $employee = Employe::find($id);
         $employee->delete();
-        return response(null, 200);
+        if ($employee->delete()) {
+            return response(null, 200);
+        }else{
+            return response(null, 400);
+        }
 
     }
 }

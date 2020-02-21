@@ -22,11 +22,9 @@ Route::group(['prefix' => 'auth'], function ($router) {
   Route::post('me', 'AuthController@me');
 });
 
-Route::post('/company/{id}', 'CompanyController@update');
 Route::resource('/company', 'CompanyController')->except([
     'create', 'show	'
 ]);
-Route::post('/employe/{id}', 'EmployeController@update');
 Route::resource('/employe', 'EmployeController')->except([
     'create', 'show	'
 ]);

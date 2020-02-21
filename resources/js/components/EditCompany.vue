@@ -72,6 +72,7 @@ export default {
       fd.append('email', this.email);
       fd.append('logo', this.logo);
       fd.append('website', this.website);
+      fd.append('_method', 'put');
 
       let self = this.$router;
       this.$store.dispatch('updateCompany', {data: fd, id: +this.$route.params.id})

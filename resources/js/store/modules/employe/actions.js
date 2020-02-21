@@ -1,4 +1,3 @@
-import {routes} from '../../../router.js'
 import axios from 'axios'
 export default {
 
@@ -27,19 +26,15 @@ addEmploye({commit, state}, payload) {
   deleteEmploye({commit}, id) {
     commit('DELETE_EMPLOYE', id);
     axios.delete(`/api/employe/${id}`);
-    routes.push({path:'/api/employe'});
-
-
   },
   editEmploye(ctx, id) {
     return axios.get(`/api/employe/update/${id}/`, id).then(response =>{
-      routes.push({ path: '/api/employe/update/' + id});
+        console.log(response);
     }).catch(err => reject(err));
   },
 
   updateEmploye({commit}, payload) {
     commit('EDIT_EMPLOYE', payload);
-
     axios.post(`/api/employe/${payload.id}`, payload.data)
     .catch(err=>{console.log(err)})
   }

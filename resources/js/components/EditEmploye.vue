@@ -60,6 +60,7 @@ export default {
       data.append('lastname', this.lastname);
       data.append('department', this.department);
       data.append('phone', this.phone);
+      data.append('_method', 'put');
 
       let self = this.$router;
       this.$store.dispatch('updateEmploye', {data:data, id: +this.$route.params.id})
