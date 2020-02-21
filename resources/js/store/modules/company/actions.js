@@ -1,4 +1,3 @@
-// import {routes} from '../../../router.js';
 import axios from 'axios';
 
 export default {
@@ -6,7 +5,8 @@ export default {
   addCompany({commit, state}, payload) {
     commit({
       type:'ADD_COMPANY',
-      data: payload.data});
+      data: payload
+  });
       axios.request({
         url: '/api/company',
         method: 'POST',
@@ -16,7 +16,7 @@ export default {
             'Content-Type': 'multipart/form-data',
             'Authorization': localStorage.getItem('Token'),
           }
-        }
+      },
       }).then(res=>{
         console.log(res)
       }).catch(err=>console.log(err))
@@ -25,8 +25,6 @@ export default {
     deleteCompany ({commit}, id){
       commit('DELETE_COMPANY', id);
       axios.delete(`/api/company/${id}`);
-      // routes.push({path:'/api/company'});
-
     },
 
     updateCompany({commit}, payload) {
@@ -39,7 +37,7 @@ export default {
          }
       }
 
-      axios.post(`/api/company/${payload.id}`, payload.data, {emulateJSON: true})
+      axios.post(`/api/company/${payload.id}`,payload.data)
       .then(res=>{
         console.log(res);
       })

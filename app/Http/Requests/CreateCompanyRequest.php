@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+// use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
-class CreateCompanieRequest extends FormRequest
+class CreateCompanyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +29,6 @@ class CreateCompanieRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email|',
             'logo' => 'nullable|required'
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date'
-            // 'logo' => 'dimensions:max_width=11000,max_height=11000'
         ];
     }
 }

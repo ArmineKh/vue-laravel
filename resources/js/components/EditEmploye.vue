@@ -35,7 +35,7 @@ export default {
   name: 'editEmploye',
   mounted() {
     let app = this
-    axios.get(`/api/employe/update/${app.$route.params.id}/`, app.id).then(response =>{
+    axios.get(`/api/employe/${app.$route.params.id}/edit`, app.id).then(response =>{
       app.firstname = response.data.firstname;
       app.lastname = response.data.lastname;
       app.department = response.data.department;
@@ -55,15 +55,15 @@ export default {
 
   methods: {
     editEmp() {
-      let data = {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        department: this.department,
-        phone: this.phone
-      };
+      let data = new FormData();
+      data.append('firstname', this.firstname);
+      data.append('lastname', this.lastname);
+      data.append('department', this.department);
+      data.append('phone', this.phone);
 
       let self = this.$router;
-      this.$store.dispatch('updateEmploye', {data:data, id: +this.$route.params.id}).then(res=>{
+      this.$store.dispatch('updateEmploye', {data:data, id: +this.$route.params.id})
+      .then(res=>{
         self.push({path:'/employe'});
       }).catch(err=>console.log(err))
     }

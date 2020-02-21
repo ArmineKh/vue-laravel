@@ -49,7 +49,6 @@ export default {
 
     onFileInputChange(e){
       this.logo = e.target.files[0] || e.dataTransfer.files[0];
-      // console.log(this.logo);
     },
 
     addComp(){

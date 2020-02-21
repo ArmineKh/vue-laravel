@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+// use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+
 
 class CreateEmployeeRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class CreateEmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,12 +27,10 @@ class CreateEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-          'name' => 'required',
+          'firstname' => 'required',
           'lastname' => 'required',
-          'company' => 'required|integer',
-          'email' => 'email',
-          'created_at' => 'nullable|date',
-          'updated_at' => 'nullable|date'
+          'department' => 'required',
+          'phone' => 'required',
       ];
     }
 }

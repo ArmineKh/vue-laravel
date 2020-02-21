@@ -40,7 +40,7 @@ export default {
   name: 'editCompany',
   mounted() {
     let app = this
-    axios.get(`/api/company/update/${app.$route.params.id}/`, app.id).then(response =>{
+    axios.get(`/api/company/${app.$route.params.id}/edit`, app.id).then(response =>{
       app.name = response.data.name;
       app.email = response.data.email;
       app.website = response.data.website;

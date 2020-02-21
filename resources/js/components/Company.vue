@@ -63,7 +63,7 @@ export default {
 
     editComp(e) {
       const id = +e.target.getAttribute('data-id');
-      this.$router.push(`/company/update/${id}`);
+      this.$router.push(`/company/${id}/edit`);
     }
   }
 }

@@ -55,7 +55,7 @@ export const routes  = [
     component: Company,
   },
   {
-    path: `/company/update/:id`,
+    path: `/company/:id/edit`,
     name: 'editCompany',
     component: EditCompany,
   },
@@ -81,7 +81,7 @@ export const routes  = [
     component: Employe,
   },
   {
-    path: `/employe/update/:id`,
+    path: `/employe/:id/edit`,
     name: 'editEmloye',
     component: EditEmploye,
   },

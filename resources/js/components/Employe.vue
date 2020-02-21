@@ -59,7 +59,7 @@ export default {
 
     editEmp(e) {
       const id = +e.target.getAttribute('data-id');
-      this.$router.push(`/employe/update/${id}`)
+      this.$router.push(`/employe/${id}/edit`)
     }
   }
 }

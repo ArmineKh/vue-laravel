@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateCompanyRequest;
 use Illuminate\Http\Response;
-use App\Http\Requests\CreateCompanieRequest;
-use Storage;
 use App\Models\Company;
+use App\Http\Resources\CompanyResource;
+use Illuminate\Http\Request;
+use Storage;
+use Validator;
+
 
 
 class CompanyController extends Controller
@@ -19,7 +22,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companyes = Company::all();
-        return response()->json($companyes, 200);
+        return  CompanyResource::collection($companyes, 200);
     }
 
     /**
@@ -28,7 +31,7 @@ class CompanyController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-    public function store(CreateCompanieRequest $request)
+    public function store(CreateCompanyRequest $request)
     {
         $logoName = '';
         if ($request->file('logo'))
@@ -36,11 +39,11 @@ class CompanyController extends Controller
             $logoName = $request->file('logo')->store('/public');
             $logoName = str_replace('public', 'storage', $logoName);
         }
-        $company = Company::create($request->all())->expect(logo);
+        $company = Company::create($request->all());
         $company->logo = $logoName;
         $company->save();
 
-        return response()->json(['company' => $company], 201);
+        return new CompanyResource($company, 201);
     }
 
 
@@ -53,7 +56,7 @@ class CompanyController extends Controller
     public function edit($id)
     {
         $company = Company::find($id);
-        return response()->json($company, 200);
+        return new CompanyResource($company, 200);
     }
 
     /**
@@ -63,21 +66,23 @@ class CompanyController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function update(CreateCompanieRequest $request, $id)
+    public function update(CreateCompanyRequest $request, $id)
     {
-        // dd($request->all());
-
         $logoName = '';
         if ($request->file('logo'))
         {
             $logoName = $request->file('logo')->store('/public');
             $logoName = str_replace('public', 'storage', $logoName);
         }
-        $comp = Company::find($id)->fill($request->all())->expect('logo');
-        $comp->logo = $logoName;
-        $comp->save();
+        $comp = Company::find($id)->update([
+            'name' => $request->name,
+            'logo' => $logoName,
+            'email' => $request->email,
+            'website' => $request->website
+        ]);
 
-        return response()->json($comp, 201);
+        return response(null, 201);
+
     }
 
     /**
@@ -88,9 +93,9 @@ class CompanyController extends Controller
     */
     public function destroy($id)
     {
-
         $company = Company::find($id);
         $company->delete();
+
         return response(null, 200);
     }
 }

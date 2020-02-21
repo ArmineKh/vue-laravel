@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\CreateEmployeeRequest;
-use Storage;
 use App\Models\Employe;
+use App\Http\Resources\EmployeResource;
+use Illuminate\Http\Request;
+use Storage;
+use Validator;
 
 
 
@@ -20,7 +22,7 @@ class EmployeController extends Controller
     public function index()
     {
         $employees = Employe::all();
-        return response()->json($employees, 200);
+        return EmployeResource::collection($employees, 200);
     }
 
 
@@ -33,7 +35,7 @@ class EmployeController extends Controller
     public function store(CreateEmployeeRequest $request)
     {
         $employee = Employe::create($request->all());
-        return response()->json($employee, 201);
+        return response(null, 201);
     }
 
 
@@ -46,7 +48,7 @@ class EmployeController extends Controller
     public function edit($id)
     {
         $employee = Employe::find($id);
-        return response()->json($employee, 200);
+        return new EmployeResource($employee, 200);
     }
 
     /**
@@ -58,8 +60,8 @@ class EmployeController extends Controller
     */
     public function update(CreateEmployeeRequest $request, $id)
     {
-        $employee = Employe::find($id)->fill($request->all())->save();
-        return response()->json($employee, 201);
+        $employee = Employe::find($id)->update($request->all());
+        return response(null, 201);
     }
 
     /**

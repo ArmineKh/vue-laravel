@@ -1971,7 +1971,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     editComp: function editComp(e) {
       var id = +e.target.getAttribute('data-id');
-      this.$router.push("/company/update/".concat(id));
+      this.$router.push("/company/".concat(id, "/edit"));
     }
   }
 });
@@ -2031,7 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onFileInputChange: function onFileInputChange(e) {
-      this.logo = e.target.files[0] || e.dataTransfer.files[0]; // console.log(this.logo);
+      this.logo = e.target.files[0] || e.dataTransfer.files[0];
     },
     addComp: function addComp() {
       var fd = new FormData();
@@ -2222,7 +2222,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'editCompany',
   mounted: function mounted() {
     var app = this;
-    axios.get("/api/company/update/".concat(app.$route.params.id, "/"), app.id).then(function (response) {
+    axios.get("/api/company/".concat(app.$route.params.id, "/edit"), app.id).then(function (response) {
       app.name = response.data.name;
       app.email = response.data.email;
       app.website = response.data.website;
@@ -2311,7 +2311,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'editEmploye',
   mounted: function mounted() {
     var app = this;
-    axios.get("/api/employe/update/".concat(app.$route.params.id, "/"), app.id).then(function (response) {
+    axios.get("/api/employe/".concat(app.$route.params.id, "/edit"), app.id).then(function (response) {
       app.firstname = response.data.firstname;
       app.lastname = response.data.lastname;
       app.department = response.data.department;
@@ -2331,12 +2331,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     editEmp: function editEmp() {
-      var data = {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        department: this.department,
-        phone: this.phone
-      };
+      var data = new FormData();
+      data.append('firstname', this.firstname);
+      data.append('lastname', this.lastname);
+      data.append('department', this.department);
+      data.append('phone', this.phone);
       var self = this.$router;
       this.$store.dispatch('updateEmploye', {
         data: data,
@@ -2423,7 +2422,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     editEmp: function editEmp(e) {
       var id = +e.target.getAttribute('data-id');
-      this.$router.push("/employe/update/".concat(id));
+      this.$router.push("/employe/".concat(id, "/edit"));
     }
   }
 });
@@ -62279,7 +62278,7 @@ var routes = [{
   name: 'deleteCompany',
   component: _components_Company_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
-  path: "/company/update/:id",
+  path: "/company/:id/edit",
   name: 'editCompany',
   component: _components_EditCompany_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
@@ -62301,7 +62300,7 @@ var routes = [{
   name: 'deleteEmloye',
   component: _components_Employe_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
-  path: "/employe/update/:id",
+  path: "/employe/:id/edit",
   name: 'editEmloye',
   component: _components_EditEmploye_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
@@ -62357,7 +62356,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-// import {routes} from '../../../router.js';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   addCompany: function addCompany(_ref, payload) {
@@ -62365,7 +62363,7 @@ __webpack_require__.r(__webpack_exports__);
         state = _ref.state;
     commit({
       type: 'ADD_COMPANY',
-      data: payload.data
+      data: payload
     });
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.request({
       url: '/api/company',
@@ -62386,7 +62384,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteCompany: function deleteCompany(_ref2, id) {
     var commit = _ref2.commit;
     commit('DELETE_COMPANY', id);
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/company/".concat(id)); // routes.push({path:'/api/company'});
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/company/".concat(id));
   },
   updateCompany: function updateCompany(_ref3, payload) {
     var commit = _ref3.commit;
@@ -62397,9 +62395,7 @@ __webpack_require__.r(__webpack_exports__);
         'Authorization': localStorage.getItem('Token')
       }
     };
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/company/".concat(payload.id), payload.data, {
-      emulateJSON: true
-    }).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/company/".concat(payload.id), payload.data).then(function (res) {
       console.log(res);
     })["catch"](function (err) {
       console.log(err);
@@ -62529,7 +62525,8 @@ __webpack_require__.r(__webpack_exports__);
           'Authorization': localStorage.getItem('Token')
         }
       }
-    }).then(function (res) {// console.log(res)
+    }).then(function (res) {
+      console.log(res);
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -62554,14 +62551,7 @@ __webpack_require__.r(__webpack_exports__);
   updateEmploye: function updateEmploye(_ref3, payload) {
     var commit = _ref3.commit;
     commit('EDIT_EMPLOYE', payload);
-    var headers = {
-      'Content-Type': 'multipart/form-data',
-      'Authorization': localStorage.getItem('Token')
-    };
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/employe/".concat(payload.id), {
-      data: payload.data,
-      headers: headers
-    })["catch"](function (err) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/employe/".concat(payload.id), payload.data)["catch"](function (err) {
       console.log(err);
     });
   }

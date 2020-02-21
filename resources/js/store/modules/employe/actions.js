@@ -19,7 +19,7 @@ addEmploye({commit, state}, payload) {
     }
   })
   .then(res=>{
-    // console.log(res)
+    console.log(res)
   }).catch(err=>console.log(err))
 
   },
@@ -38,13 +38,9 @@ addEmploye({commit, state}, payload) {
   },
 
   updateEmploye({commit}, payload) {
-
     commit('EDIT_EMPLOYE', payload);
-    let  headers = {
-        'Content-Type': 'multipart/form-data',
-          'Authorization': localStorage.getItem('Token'),
-      }
-    axios.put(`/api/employe/${payload.id}`, {data: payload.data, headers: headers})
+
+    axios.post(`/api/employe/${payload.id}`, payload.data)
     .catch(err=>{console.log(err)})
   }
 }
