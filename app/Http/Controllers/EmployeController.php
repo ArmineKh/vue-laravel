@@ -14,6 +14,12 @@ use Validator;
 
 class EmployeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('jwt.auth');
+    }
+
     /**
     * Display a listing of the resource.
     *
@@ -35,9 +41,9 @@ class EmployeController extends Controller
     public function store(CreateEmployeeRequest $request)
     {
         $employee = Employe::create($request->all());
-        if (Employe::find($employee->id)->first()) {
+        if ($employee) {
             return response(null, 201);
-        } else{
+        }else{
             return response(null, 400);
         }
     }
@@ -65,10 +71,9 @@ class EmployeController extends Controller
     public function update(CreateEmployeeRequest $request, $id)
     {
         $employee = Employe::find($id)->update($request->all());
-        $emp = Employe::find($id)->first();
-        if ($emp->updated_at) {
+        if ($employee) {
             return response(null, 201);
-        } else{
+        }else{
             return response(null, 400);
         }
     }
@@ -83,11 +88,10 @@ class EmployeController extends Controller
     {
         $employee = Employe::find($id);
         $employee->delete();
-        if ($employee->delete()) {
-            return response(null, 200);
-        }else{
+        if ($employee) {
             return response(null, 400);
+        }else{
+            return response(null, 204);
         }
-
     }
 }

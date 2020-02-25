@@ -1,15 +1,19 @@
 export default {
 
-  DELETE_EMPLOYE(state, id) {
-    state.employeList = state.employeList.filter(el => el.id != id);
-  },
+    SET_EMPLOYES(state, employes){
+        state.employeList  = employes;
+    },
 
-  ADD_EMPLOYE(state, data){
-    state.employeList.push(data);
+    DELETE_EMPLOYE(state, id) {
+        state.employeList = state.employeList.filter(el => el.id != id);
+    },
 
-  },
-  EDIT_EMPLOYE(state, data){
-    state.employeList = data;
-  }
+    ADD_EMPLOYE(state, data){
+        state.employeList.push(data);
+
+    },
+    EDIT_EMPLOYE(state, data){
+        state.employeList = data;
+    }
 
 }

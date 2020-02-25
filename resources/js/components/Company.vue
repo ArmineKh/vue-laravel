@@ -19,7 +19,7 @@
             <th>Delete</th>
 
           </tr>
-          <tr class = "text-center" v-for="company in companyes" :key="company.id" >
+          <tr class = "text-center" v-for="company in allCompanyes" :key="company.id" >
             <td>{{ company.id }}</td>
             <td>{{ company.name }}</td>
             <td>
@@ -50,7 +50,16 @@ export default {
     }
   },
   created(){
-    axios.get('/api/company').then((response) => {this.companyes = response.data;})
+      this.$store.dispatch('getCompanyes');
+    // axios.get('/api/company').then((response) => {
+    //     this.companyes = response.data;
+    // })
+  },
+
+  computed:{
+      allCompanyes(){
+         return this.$store.getters.getCompanyes;
+      }
   },
 
   methods: {

@@ -25,7 +25,9 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-        $user = \App\User::create($request->all());
+        $user = \App\Models\User::create($request->all());
+        $user->password = bcrypt($request->password);
+        $user->save();
         $token = auth()->login($user);
         return $this->respondWithToken($token);
     }
@@ -37,7 +39,7 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-        if (! $token = auth('api')->attempt($credentials)) {
+        if (! $token = auth("api")->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
@@ -49,7 +51,7 @@ class AuthController extends Controller
     */
     public function me()
     {
-        return response()->json(auth('api')->user());
+        return response()->json(auth("api")->user());
     }
     /**
     * Log the user out (Invalidate the token).
@@ -58,7 +60,7 @@ class AuthController extends Controller
     */
     public function logout()
     {
-        auth('api')->logout();
+        auth("api")->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
     /**
@@ -68,7 +70,7 @@ class AuthController extends Controller
     */
     public function refresh()
     {
-        return $this->respondWithToken(auth('api')->refresh());
+        return $this->respondWithToken(auth("api")->refresh());
     }
     /**
     * Get the token array structure.
@@ -83,7 +85,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'user' => $this->guard()->user(),
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'expires_in' => auth("api")->factory()->getTTL() * 60
         ]);
     }
     public function guard(){

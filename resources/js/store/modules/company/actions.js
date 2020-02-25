@@ -5,6 +5,8 @@ export default {
         axios.get('/api/company').then((response) => {
             commit('SET_COMPANYES', response.data)
         })
+            // commit('SET_COMPANYES', payload)
+
     },
 
     addCompany({commit, state}, payload) {
@@ -23,7 +25,7 @@ export default {
                 }
             },
         }).then(res=>{
-            console.log(res)
+            console.log(res);
         }).catch(err=>console.log(err))
     },
 

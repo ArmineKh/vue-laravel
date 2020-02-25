@@ -1957,11 +1957,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    var _this = this;
-
-    axios.get('/api/company').then(function (response) {
-      _this.companyes = response.data;
-    });
+    this.$store.dispatch('getCompanyes'); // axios.get('/api/company').then((response) => {
+    //     this.companyes = response.data;
+    // })
+  },
+  computed: {
+    allCompanyes: function allCompanyes() {
+      return this.$store.getters.getCompanyes;
+    }
   },
   methods: {
     deleteComp: function deleteComp(e) {
@@ -2410,11 +2413,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    var _this = this;
-
-    axios.get('/api/employe').then(function (response) {
-      _this.employees = response.data;
-    });
+    this.$store.dispatch('getEmployes'); // axios.get('/api/employe').then((response) => {
+    //   this.employees = response.data;
+    // });
+  },
+  computed: {
+    getEmployees: function getEmployees() {
+      return this.$store.getters.employees;
+    }
   },
   methods: {
     deleteEmp: function deleteEmp(e) {
@@ -43536,7 +43542,7 @@ var render = function() {
             _vm._v(" "),
             _vm._m(0),
             _vm._v(" "),
-            _vm._l(_vm.companyes, function(company) {
+            _vm._l(_vm.allCompanyes, function(company) {
               return _c("tr", { key: company.id, staticClass: "text-center" }, [
                 _c("td", [_vm._v(_vm._s(company.id))]),
                 _vm._v(" "),
@@ -44303,7 +44309,7 @@ var render = function() {
             _vm._v(" "),
             _vm._m(0),
             _vm._v(" "),
-            _vm._l(_vm.employees, function(employe) {
+            _vm._l(_vm.getEmployees, function(employe) {
               return _c("tr", { staticClass: "text-center" }, [
                 _c("td", [_vm._v(_vm._s(employe.id))]),
                 _vm._v(" "),
@@ -61243,6 +61249,7 @@ window.VeeValidate = __webpack_require__(/*! vee-validate */ "./node_modules/vee
 window.Vue.use(window.VeeValidate);
 Vue.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_5___default.a, axios__WEBPACK_IMPORTED_MODULE_6___default.a);
+axios__WEBPACK_IMPORTED_MODULE_6___default.a.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: _router_js__WEBPACK_IMPORTED_MODULE_2__["routes"],
@@ -61288,7 +61295,7 @@ try {
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // window.axios.defaults.headers.common = {
 //     'X-Requested-With': 'XMLHttpRequest',
-//     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//     'Authorization' : localStorage.getItem('Token')
 // };
 
 /**
@@ -62264,13 +62271,19 @@ var routes = [{
 }, {
   path: '/dashboard',
   name: 'dashboard',
-  component: _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  meta: {
+    auth: true
+  }
 },
 /* *********   *******  */
 {
   path: '/company',
   name: 'company',
-  component: _components_Company_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _components_Company_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  meta: {
+    auth: true
+  }
 }, {
   path: '/company/create',
   name: 'createCompany',
@@ -62365,7 +62378,7 @@ __webpack_require__.r(__webpack_exports__);
         state = _ref.state;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/company').then(function (response) {
       commit('SET_COMPANYES', response.data);
-    });
+    }); // commit('SET_COMPANYES', payload)
   },
   addCompany: function addCompany(_ref2, payload) {
     var commit = _ref2.commit,
@@ -62507,9 +62520,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  addEmploye: function addEmploye(_ref, payload) {
+  getEmployes: function getEmployes(_ref) {
     var commit = _ref.commit,
         state = _ref.state;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/employe').then(function (res) {
+      commit("SET_EMPLOYES", res.data);
+    });
+  },
+  addEmploye: function addEmploye(_ref2, payload) {
+    var commit = _ref2.commit,
+        state = _ref2.state;
     commit({
       type: 'ADD_EMPLOYE',
       data: payload.data
@@ -62530,8 +62550,8 @@ __webpack_require__.r(__webpack_exports__);
       return console.log(err);
     });
   },
-  deleteEmploye: function deleteEmploye(_ref2, id) {
-    var commit = _ref2.commit;
+  deleteEmploye: function deleteEmploye(_ref3, id) {
+    var commit = _ref3.commit;
     commit('DELETE_EMPLOYE', id);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/employe/".concat(id));
   },
@@ -62542,8 +62562,8 @@ __webpack_require__.r(__webpack_exports__);
       return reject(err);
     });
   },
-  updateEmploye: function updateEmploye(_ref3, payload) {
-    var commit = _ref3.commit;
+  updateEmploye: function updateEmploye(_ref4, payload) {
+    var commit = _ref4.commit;
     commit('EDIT_EMPLOYE', payload);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/employe/".concat(payload.id), payload.data)["catch"](function (err) {
       console.log(err);
@@ -62606,6 +62626,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  SET_EMPLOYES: function SET_EMPLOYES(state, employes) {
+    state.employeList = employes;
+  },
   DELETE_EMPLOYE: function DELETE_EMPLOYE(state, id) {
     state.employeList = state.employeList.filter(function (el) {
       return el.id != id;

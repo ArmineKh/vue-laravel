@@ -37,12 +37,18 @@ export const routes  = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+    meta: {
+        auth: true
+    }
   },
   /* *********   *******  */
   {
     path: '/company',
     name: 'company',
     component: Company,
+    meta: {
+        auth: true
+    }
   },
   {
     path: '/company/create',

@@ -18,7 +18,7 @@
             <th>Edit</th>
             <th>Delete</th>
           </tr>
-          <tr class = "text-center" v-for="employe in employees">
+          <tr class = "text-center" v-for="employe in getEmployees">
             <td>{{ employe.id }}</td>
             <td>{{ employe.firstname }}</td>
             <td>{{ employe.lastname }}</td>
@@ -46,9 +46,15 @@ export default {
     }
   },
   created(){
-    axios.get('/api/employe').then((response) => {
-      this.employees = response.data;
-    });
+      this.$store.dispatch('getEmployes');
+    // axios.get('/api/employe').then((response) => {
+    //   this.employees = response.data;
+    // });
+  },
+  computed:{
+      getEmployees(){
+          return this.$store.getters.employees;
+      }
   },
   methods: {
     deleteEmp(e) {

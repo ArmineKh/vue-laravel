@@ -13,7 +13,7 @@ window.VeeValidate = require('vee-validate');
 window.Vue.use(window.VeeValidate);
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
-
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 
 Vue.use(VueRouter);
 

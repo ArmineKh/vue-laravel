@@ -14,6 +14,12 @@ use Validator;
 
 class CompanyController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('jwt.auth');
+    }
+
     /**
     * Display a listing of the resource.
     *
@@ -42,8 +48,7 @@ class CompanyController extends Controller
         $company = Company::create($request->all());
         $company->logo = $logoName;
         $company->save();
-
-        if (Company::find($company->id)->first()) {
+        if ($company) {
             return new CompanyResource($company, 201);
         }else{
             return response(null, 400);
@@ -79,14 +84,10 @@ class CompanyController extends Controller
             $logoName = $request->file('logo')->store('/public');
             $logoName = str_replace('public', 'storage', $logoName);
         }
-        $comp = Company::find($id)->update([
-            'name' => $request->name,
-            'logo' => $logoName,
-            'email' => $request->email,
-            'website' => $request->website
-        ]);
-        $company = Company::find($id)->first();
-        if ($company->updated_at) {
+        $comp = Company::find($id)->update($request->all());
+        $comp->logo = $logoName;
+        $comp->save();
+        if ($comp) {
             return response(null, 201);
         }else{
             return response(null, 204);
@@ -104,10 +105,10 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         $company->delete();
-        if ($company->delete()) {
-            return response(null, 200);
-        }else {
+        if ($company) {
             return response(null, 400);
+        }else {
+            return response(null, 204);
         }
 
     }
