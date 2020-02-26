@@ -1,5 +1,5 @@
 export default {
-  employees(state) {
-      return state.employeList
-  }
+    employees(state) {
+        return state.employeList
+    }
 }

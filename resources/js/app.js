@@ -13,14 +13,29 @@ window.VeeValidate = require('vee-validate');
 window.Vue.use(window.VeeValidate);
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
-axios.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes,
-  mode:'history'
+    routes,
+    mode:'history'
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!localStorage.getItem('user')) {
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            })
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
+})
+
 
 const app = new Vue({
     router,

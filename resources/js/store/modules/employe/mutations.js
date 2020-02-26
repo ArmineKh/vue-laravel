@@ -10,8 +10,8 @@ export default {
 
     ADD_EMPLOYE(state, data){
         state.employeList.push(data);
-
     },
+
     EDIT_EMPLOYE(state, data){
         state.employeList = data;
     }

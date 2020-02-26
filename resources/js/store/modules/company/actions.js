@@ -1,12 +1,11 @@
 import axios from 'axios';
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 
 export default {
     getCompanyes({commit, state}){
         axios.get('/api/company').then((response) => {
             commit('SET_COMPANYES', response.data)
         })
-            // commit('SET_COMPANYES', payload)
-
     },
 
     addCompany({commit, state}, payload) {

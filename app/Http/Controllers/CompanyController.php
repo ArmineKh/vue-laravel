@@ -17,7 +17,7 @@ class CompanyController extends Controller
 
     public function __construct()
     {
-        $this->middleware('jwt.auth');
+        $this->middleware('auth:api');
     }
 
     /**
@@ -84,9 +84,13 @@ class CompanyController extends Controller
             $logoName = $request->file('logo')->store('/public');
             $logoName = str_replace('public', 'storage', $logoName);
         }
-        $comp = Company::find($id)->update($request->all());
-        $comp->logo = $logoName;
-        $comp->save();
+        // $comp = Company::find($id)->update($request->all());
+        $comp = Company::find($id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'logo' => $logoName,
+            'website' => $request->website,
+        ]);
         if ($comp) {
             return response(null, 201);
         }else{

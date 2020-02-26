@@ -1,5 +1,5 @@
 export default {
-  getCompanyes(state) {
-      return state.companiesList
-  }
+    getCompanyes(state) {
+        return state.companiesList
+    }
 }

@@ -1,4 +1,6 @@
 import axios from 'axios'
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
+
 export default {
     getEmployes({commit, state}){
         axios.get('/api/employe').then(res=>{

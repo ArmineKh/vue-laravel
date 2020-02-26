@@ -8,4 +8,4 @@ export default{
     auth_error: null,
     reg_error:null,
     registeredUser: null
-  };
+};
