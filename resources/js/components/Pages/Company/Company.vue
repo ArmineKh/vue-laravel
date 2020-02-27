@@ -63,7 +63,6 @@ export default {
         deleteComp(e) {
             const id = +e.target.getAttribute('data-id');
             this.$store.dispatch("deleteCompany", id);
-            // location.reload(true);
         },
 
         editComp(e) {

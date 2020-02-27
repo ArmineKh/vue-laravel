@@ -13,7 +13,6 @@
 </template>
 <script>
 import Header from './Header.vue'
-import editCompany from './Company/EditCompany.vue'
 
 export default {
     name: 'Main',

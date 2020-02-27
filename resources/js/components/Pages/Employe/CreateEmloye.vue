@@ -48,15 +48,14 @@ export default {
                 department: this.department,
                 phone: this.phone,
             };
-            console.log(fd);
 
-            let self = this.$router;
+            let vm = this.$router;
             this.$store.dispatch({
                 type: 'addEmploye',
                 data: fd
             })
             .then(res=>{
-                self.push({path: '/employe'})
+                vm.push({path: '/employe'})
             }).catch(err=>{console.log(err)})
 
             this.firstname = '';

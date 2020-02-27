@@ -86,12 +86,10 @@ class EmployeController extends Controller
     */
     public function destroy($id)
     {
-        $employee = Employe::find($id);
-        $employee->delete();
-        if ($employee) {
-            return response(null, 400);
-        }else{
+        if (Employe::destroy($id)) {
             return response(null, 204);
+        }else{
+            return response(null, 400);
         }
     }
 }

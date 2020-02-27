@@ -1,15 +1,15 @@
-import Home from './components/Home.vue';
-import Register from './components/Register.vue';
-import Login from './components/Login.vue';
-import Dashboard from './components/Dashboard.vue';
+import Home from './components/Pages/Home.vue';
+import Register from './components/Pages/Register.vue';
+import Login from './components/Pages/Login.vue';
+import Dashboard from './components/Pages/Dashboard.vue';
 
-import Company from './components/Company/Company.vue';
-import CreateCompany from './components/Company/CreateCompany.vue';
-import EditCompany from './components/Company/EditCompany.vue';
+import Company from './components/Pages/Company/Company.vue';
+import CreateCompany from './components/Pages/Company/CreateCompany.vue';
+import EditCompany from './components/Pages/Company/EditCompany.vue';
 
-import Employe from './components/Employe/Employe.vue';
-import CreateEmloye from './components/Employe/CreateEmloye.vue';
-import EditEmploye from './components/Employe/EditEmploye.vue';
+import Employe from './components/Pages/Employe/Employe.vue';
+import CreateEmloye from './components/Pages/Employe/CreateEmloye.vue';
+import EditEmploye from './components/Pages/Employe/EditEmploye.vue';
 
 
 import Vuex from 'vuex';

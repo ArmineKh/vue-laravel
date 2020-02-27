@@ -107,12 +107,11 @@ class CompanyController extends Controller
     */
     public function destroy($id)
     {
-        $company = Company::find($id);
-        $company->delete();
-        if ($company) {
-            return response(null, 400);
-        }else {
+        // Company::destroy($id);
+        if (Company::destroy($id)) {
             return response(null, 204);
+        }else {
+            return response(null, 400);
         }
 
     }

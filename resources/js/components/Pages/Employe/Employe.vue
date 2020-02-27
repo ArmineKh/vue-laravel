@@ -57,7 +57,6 @@ export default {
         deleteEmp(e) {
             const id = +e.target.getAttribute('data-id');
             this.$store.dispatch('deleteEmploye', id);
-            // location.reload(true);
         },
 
         editEmp(e) {

@@ -58,14 +58,13 @@ export default {
             fd.append('logo', this.logo);
             fd.append('website', this.website);
 
-            let self = this.$router;
+            let vm = this.$router;
 
             this.$store.dispatch({
                 type:"addCompany",
                 data: fd
             }).then(res=>{
-                console.log(res)
-                self.push({path:'/company'});
+                vm.push({path:'/company'});
             }).catch(err=>console.log(err));
 
             this.name = '';

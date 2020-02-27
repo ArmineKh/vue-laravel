@@ -1,4 +1,4 @@
-import {getLoggedinUser} from '../../../partials/auth';
+import {getLoggedinUser} from '../../../Services/auth';
 const user = getLoggedinUser();
 
 export default{
