@@ -62705,7 +62705,6 @@ __webpack_require__.r(__webpack_exports__);
     return new Promise(function (resolve, rej) {
       Object(_Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["updateEmp"])(payload).then(function (res) {
         commit('EDIT_EMPLOYE', payload);
-        console.log(res.data);
         resolve(res.data);
       })["catch"](function (err) {
         reject(err);

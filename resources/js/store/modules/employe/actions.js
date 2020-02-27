@@ -41,7 +41,6 @@ export default {
         return new Promise((resolve, rej)=>{
             updateEmp(payload).then(res=>{
                 commit('EDIT_EMPLOYE', payload);
-                console.log(res.data)
                 resolve(res.data);
             }).catch(err=>{reject(err)})
         })
