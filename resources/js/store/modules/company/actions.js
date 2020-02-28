@@ -1,23 +1,19 @@
 import axios from 'axios';
-import {getComp} from '../../../Services/companyServices';
-import {addComp} from '../../../Services/companyServices';
-import {deleteComp} from '../../../Services/companyServices';
-import {editComp} from '../../../Services/companyServices';
-import {updateComp} from '../../../Services/companyServices';
+import * as companyServices from '../../../Services/companyServices';
 
 export default {
     getCompanyes({commit, state}){
         return new Promise((resolve, rej)=>{
-            getComp('/api/company').then(res=>{
+            companyServices.getCompanyes('/api/company').then(res=>{
                 commit('SET_COMPANYES', res.data)
                 resolve(res.data)
-            }).catch(err=>{reject(err)})
+            }).catch(err=>{console.log(err)})
         })
     },
 
     addCompany({commit, state}, payload) {
         return new Promise((resolve, rej)=>{
-            addComp(payload).then(res=>{
+            companyServices.addCompany(payload).then(res=>{
                 commit({
                     type:'ADD_COMPANY',
                     data: payload
@@ -29,7 +25,7 @@ export default {
 
     deleteCompany ({commit}, id){
         return new Promise((resolve, rej)=>{
-            deleteComp(id).then(res=>{
+            companyServices.deleteCompany(id).then(res=>{
                 commit('DELETE_COMPANY', id);
             }).catch(err=>{reject(err)})
         })
@@ -37,7 +33,7 @@ export default {
 
     updateCompany({commit}, payload) {
         return new Promise((resolve, rej)=>{
-            updateComp(payload).then(res=>{
+            companyServices.updateCompany(payload).then(res=>{
                 commit('EDIT_COMPANY', payload);
                 resolve(res.data);
             }).catch(err=>{reject(err)})

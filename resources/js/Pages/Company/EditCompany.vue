@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import {getCompany} from '../../Services/companyServices'
 
 export default {
     name: 'editCompany',

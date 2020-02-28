@@ -5,7 +5,7 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import {routes} from './router.js';
 import store from './store';
-import Main from './components/Pages/Main.vue';
+import Main from './Pages/Main.vue';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 window.VeeValidate = require('vee-validate');

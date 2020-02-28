@@ -4,7 +4,6 @@
         <div class="content">
             <div class="row">
                 <div class="col-sm-12">
-
                 </div>
             </div>
             <router-view></router-view>
@@ -12,12 +11,13 @@
     </div>
 </template>
 <script>
-import Header from './Header.vue'
+import Header from './Header.vue';
 
 export default {
     name: 'Main',
     components: {
         Header,
+
     },
 
 }

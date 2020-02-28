@@ -1,11 +1,11 @@
 import axios from 'axios';
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 
-export function getEmp(url){
+export function getEmployes(url){
     return axios.get(url);
 }
 
-export function addEmp(payload){
+export function addEmploye(payload){
     return axios.request({
         url: '/api/employe',
         method:'POST',
@@ -19,14 +19,14 @@ export function addEmp(payload){
     })
 }
 
-export function deleteEmp(id){
+export function deleteEmploye(id){
     return axios.delete(`/api/employe/${id}`);
 }
 
-export function editEmp(id){
+export function editEmploye(id){
     return axios.get(`/api/employe/update/${id}/`, id)
 }
 
-export function updateEmp(payload){
+export function updateEmploye(payload){
     return axios.post(`/api/employe/${payload.id}`, payload.data)
 }

@@ -1,15 +1,11 @@
 import axios from 'axios';
-import {getEmp} from '../../../Services/employeServices';
-import {addEmp} from '../../../Services/employeServices';
-import {deleteEmp} from '../../../Services/employeServices';
-import {editEmp} from '../../../Services/employeServices';
-import {updateEmp} from '../../../Services/employeServices';
+import * as employeServices from '../../../Services/employeServices';
 
 
 export default {
     getEmployes({commit, state}){
         return new Promise((resolve, rej)=>{
-            getEmp('/api/employe').then(res=>{
+            employeServices.getEmployes('/api/employe').then(res=>{
                 commit("SET_EMPLOYES", res.data);
                 resolve(res.data)
             }).catch(err=>{reject(err)})
@@ -18,7 +14,7 @@ export default {
 
     addEmploye({commit, state}, payload) {
         return new Promise((resolve, rej)=>{
-            addEmp(payload).then(res=>{
+            employeServices.addEmploye(payload).then(res=>{
                 commit({
                     type: 'ADD_EMPLOYE',
                     data: payload.data
@@ -30,7 +26,7 @@ export default {
 
     deleteEmploye({commit}, id) {
         return new Promise((resolve, rej)=>{
-            deleteEmp(id)
+            employeServices.deleteEmploye(id)
             .then(res=>{
                 commit('DELETE_EMPLOYE', id);
             }).catch(err=>{reject(err)})
@@ -39,7 +35,7 @@ export default {
 
     updateEmploye({commit}, payload) {
         return new Promise((resolve, rej)=>{
-            updateEmp(payload).then(res=>{
+            employeServices.updateEmploye(payload).then(res=>{
                 commit('EDIT_EMPLOYE', payload);
                 resolve(res.data);
             }).catch(err=>{reject(err)})

@@ -51,7 +51,7 @@
 </template>
 <script>
 import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
-import {registerUser} from '../../Services/auth';
+import {registerUser} from '../Services/auth';
 import { mapGetters } from 'vuex';
 
 export default {
