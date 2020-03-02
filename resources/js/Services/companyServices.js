@@ -27,3 +27,7 @@ export function deleteCompany(id){
 export function updateCompany(payload){
     return axios.post(`/api/company/${payload.id}`, payload.data)
 }
+
+export function getCompany(url){
+    return axios.get(url);
+}

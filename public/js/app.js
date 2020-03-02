@@ -2111,13 +2111,18 @@ __webpack_require__.r(__webpack_exports__);
   name: 'editCompany',
   mounted: function mounted() {
     var app = this;
-    axios.get("/api/company/".concat(app.$route.params.id, "/edit"), app.id).then(function (response) {
+    console.log(app.id);
+    Object(_Services_companyServices__WEBPACK_IMPORTED_MODULE_0__["getCompany"])("/api/company/".concat(app.id, "/edit")).then(function (response) {
       app.name = response.data.name;
       app.email = response.data.email;
       app.website = response.data.website;
     })["catch"](function (err) {
-      return reject(err);
-    });
+      return console.log(err);
+    }); // axios.get(`/api/company/${app.$route.params.id}/edit`, app.id).then(response =>{
+    //     app.name = response.data.name;
+    //     app.email = response.data.email;
+    //     app.website = response.data.website;
+    // }).catch(err => reject(err));
   },
   data: function data() {
     return {
@@ -62124,7 +62129,7 @@ function getLoggedinUser() {
 /*!**************************************************!*\
   !*** ./resources/js/Services/companyServices.js ***!
   \**************************************************/
-/*! exports provided: getCompanyes, addCompany, deleteCompany, updateCompany */
+/*! exports provided: getCompanyes, addCompany, deleteCompany, updateCompany, getCompany */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62133,6 +62138,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCompany", function() { return addCompany; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCompany", function() { return deleteCompany; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCompany", function() { return updateCompany; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCompany", function() { return getCompany; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -62158,6 +62164,9 @@ function deleteCompany(id) {
 }
 function updateCompany(payload) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/company/".concat(payload.id), payload.data);
+}
+function getCompany(url) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url);
 }
 
 /***/ }),

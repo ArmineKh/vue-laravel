@@ -34,6 +34,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "@verkstedt/storybook-store-decorator": "^1.1.0",
     "axios": "^0.19.2",
     "popper.js": "^1.16.1",
     "vee-validate": "^3.2.3",

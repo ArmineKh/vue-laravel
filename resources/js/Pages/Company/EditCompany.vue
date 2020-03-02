@@ -41,11 +41,17 @@ export default {
     name: 'editCompany',
     mounted() {
         let app = this
-        axios.get(`/api/company/${app.$route.params.id}/edit`, app.id).then(response =>{
+        console.log(app.id)
+        getCompany(`/api/company/${app.id}/edit`).then(response =>{
             app.name = response.data.name;
             app.email = response.data.email;
             app.website = response.data.website;
-        }).catch(err => reject(err));
+        }).catch(err => console.log(err));
+        // axios.get(`/api/company/${app.$route.params.id}/edit`, app.id).then(response =>{
+        //     app.name = response.data.name;
+        //     app.email = response.data.email;
+        //     app.website = response.data.website;
+        // }).catch(err => reject(err));
     },
 
     data(){
