@@ -32,7 +32,7 @@
 </template>
 <script>
 import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
-import {login} from '../Services/auth';
+import {login} from '../Services/authServices.js';
 import { mapGetters } from 'vuex';
 
 export default {

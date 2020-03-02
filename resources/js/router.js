@@ -11,14 +11,14 @@ import Employe from './Pages/Employe/Employe.vue';
 import CreateEmloye from './Pages/Employe/CreateEmloye.vue';
 import EditEmploye from './Pages/Employe/EditEmploye.vue';
 
-
+import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import Vue from 'vue'
 
 Vue.use(Vuex);
 
 
-export const routes  = [
+ const routes  = [
     {
         path: '/',
         name: 'home',
@@ -104,3 +104,22 @@ export const routes  = [
     },
 
 ]
+export const router = new VueRouter({
+    routes,
+    mode:'history'
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!localStorage.getItem('user')) {
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            })
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
+})

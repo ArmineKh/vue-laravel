@@ -1,4 +1,4 @@
-import {getLoggedinUser} from '../../../Services/auth';
+import {getLoggedinUser} from '../../../Services/authServices.js';
 const user = getLoggedinUser();
 
 export default{

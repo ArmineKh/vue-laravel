@@ -3,24 +3,18 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import store from '../store';
 import EditCompany from '../Pages/Company/EditCompany.vue';
-// import Company from '../Pages/Company/Company.vue';
-
+import routes from '../router'
 import { storiesOf } from '@storybook/vue';
 import StoryRouter from 'storybook-vue-router';
 
-const Company = {
-    template: `<Company></Company>`
-};
 
 
 storiesOf('EditCompany', module)
     .addDecorator(StoryRouter({}, {
-        routes: [
-            {path: `/company`, component: Company}
-        ]
+        routes: routes
     }))
     .add('EditCompany', () => ({
-        components: {Company },
+        components: {EditCompany },
         template: `<EditCompany></EditCompany>`,
         store: store,
 

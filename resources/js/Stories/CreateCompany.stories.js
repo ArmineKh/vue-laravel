@@ -23,14 +23,3 @@ storiesOf('CreateCompany', module)
         store: store,
 
     }))
-
-
-// export default { title: 'CreateCompany' };
-//
-//
-// export const asCreateCompanyComponent = () => ({
-//   components: { CreateCompany },
-//   template: `<CreateCompany></CreateCompany>`,
-//    store: store
-//
-// });

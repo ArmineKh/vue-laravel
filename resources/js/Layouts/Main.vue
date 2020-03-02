@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-import Header from './Header.vue';
+import Header from '../hoc/Header.vue';
 
 export default {
     name: 'Main',

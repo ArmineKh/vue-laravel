@@ -19,7 +19,7 @@ export default {
                     data: payload
                 });
                 resolve(res.data)
-            }).catch(err=>{reject(err)})
+            }).catch(err=>{console.log(err)})
         })
     },
 
@@ -27,7 +27,7 @@ export default {
         return new Promise((resolve, rej)=>{
             companyServices.deleteCompany(id).then(res=>{
                 commit('DELETE_COMPANY', id);
-            }).catch(err=>{reject(err)})
+            }).catch(err=>{console.log(err)})
         })
     },
 
@@ -36,7 +36,7 @@ export default {
             companyServices.updateCompany(payload).then(res=>{
                 commit('EDIT_COMPANY', payload);
                 resolve(res.data);
-            }).catch(err=>{reject(err)})
+            }).catch(err=>{console.log(err)})
         })
     }
 }
