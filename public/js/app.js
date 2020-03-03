@@ -2490,8 +2490,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate/dist/vee-validate.full.esm */ "./node_modules/vee-validate/dist/vee-validate.full.esm.js");
-/* harmony import */ var _Services_authServices_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Services/authServices.js */ "./resources/js/Services/authServices.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2532,7 +2531,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2545,25 +2543,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     authenticate: function authenticate() {
-      var _this = this;
-
-      this.$store.dispatch('login');
-      Object(_Services_authServices_js__WEBPACK_IMPORTED_MODULE_1__["login"])(this.$data.formLogin).then(function (res) {
-        localStorage.setItem('Token', 'Bearer ' + res.access_token);
-
-        _this.$store.commit('LOGIN_SUCCESS', res);
-
-        _this.$router.push({
-          path: '/dashboard'
-        });
-      })["catch"](function (error) {
-        _this.$store.commit("LOGIN_FAILED", {
-          error: error
-        });
-      });
+      this.$store.dispatch('login', this.$data.formLogin);
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['authError', 'registeredUser']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['authError', 'registeredUser']), {
     authError: function authError() {
       return this.$store.getters.authError;
     },
@@ -2585,8 +2568,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate/dist/vee-validate.full.esm */ "./node_modules/vee-validate/dist/vee-validate.full.esm.js");
-/* harmony import */ var _Services_authServices_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Services/authServices.js */ "./resources/js/Services/authServices.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2646,7 +2628,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2663,24 +2644,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     register: function register() {
-      var _this = this;
-
-      Object(_Services_authServices_js__WEBPACK_IMPORTED_MODULE_1__["registerUser"])(this.$data.formRegister).then(function (res) {
-        console.log(res);
-
-        _this.$store.commit("REGISTER_SUCCESS", res);
-
-        _this.$router.push({
-          path: '/login'
-        });
-      })["catch"](function (error) {
-        _this.$store.commit("REGISTER_FAILED", {
-          error: error
-        });
-      });
+      this.$store.dispatch('registerUser', this.$data.formRegister);
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['regError']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['regError']))
 });
 
 /***/ }),
@@ -62940,9 +62907,38 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Services_authServices_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Services/authServices.js */ "./resources/js/Services/authServices.js");
+/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../router.js */ "./resources/js/router.js");
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  login: function login(context) {
-    context.commit("LOGIN");
+  login: function login(_ref, payload) {
+    var commit = _ref.commit;
+    commit("LOGIN");
+    _Services_authServices_js__WEBPACK_IMPORTED_MODULE_0__["login"](payload).then(function (res) {
+      localStorage.setItem('Token', 'Bearer ' + res.access_token);
+      commit('LOGIN_SUCCESS', res);
+      _router_js__WEBPACK_IMPORTED_MODULE_1__["router"].push({
+        path: '/dashboard'
+      });
+    })["catch"](function (error) {
+      commit("LOGIN_FAILED", {
+        error: error
+      });
+    });
+  },
+  registerUser: function registerUser(_ref2, payload) {
+    var commit = _ref2.commit;
+    _Services_authServices_js__WEBPACK_IMPORTED_MODULE_0__["registerUser"](payload).then(function (res) {
+      commit("REGISTER_SUCCESS", res);
+      _router_js__WEBPACK_IMPORTED_MODULE_1__["router"].push({
+        path: '/login'
+      });
+    })["catch"](function (error) {
+      commit("REGISTER_FAILED", {
+        error: error
+      });
+    });
   }
 });
 

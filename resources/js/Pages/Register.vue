@@ -51,7 +51,6 @@
 </template>
 <script>
 import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
-import {registerUser} from '../Services/authServices.js';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -70,22 +69,13 @@ export default {
     },
     methods:{
         register(){
-            registerUser(this.$data.formRegister)
-            .then(res => {
-                console.log(res);
-                this.$store.commit("REGISTER_SUCCESS", res);
-                this.$router.push({path: '/login'});
-            })
-            .catch(error => {
-                this.$store.commit("REGISTER_FAILED", {error});
-            })
+            this.$store.dispatch('registerUser',this.$data.formRegister);
+
         }
     },
     computed:{
         ...mapGetters(['regError'])
-        // regError(){
-        //   return this.$store.getters.regError
-        // }
+
     }
 }
 </script>

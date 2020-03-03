@@ -32,7 +32,6 @@
 </template>
 <script>
 import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
-import {login} from '../Services/authServices.js';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -47,16 +46,8 @@ export default {
     },
     methods:{
         authenticate(){
-            this.$store.dispatch('login');
-            login(this.$data.formLogin)
-            .then(res => {
-                localStorage.setItem('Token', 'Bearer ' + res.access_token)
-                this.$store.commit('LOGIN_SUCCESS', res);
-                this.$router.push({path: '/dashboard'});
-            })
-            .catch(error => {
-                this.$store.commit("LOGIN_FAILED", {error});
-            })
+            this.$store.dispatch('login',this.$data.formLogin);
+            
         }
     },
     computed:{
