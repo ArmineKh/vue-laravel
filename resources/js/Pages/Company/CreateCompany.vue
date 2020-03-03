@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <form @submit.prevent="addComp" enctype="multipart/form-data">
+            <form @submit.prevent="addCompany" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" name="name" class="form-control" v-model="name" required>
@@ -41,30 +41,28 @@ export default {
             email: '',
             logo: null,
             website: '',
-
         }
     },
 
     methods: {
-
         onFileInputChange(e){
             this.logo = e.target.files[0] || e.dataTransfer.files[0];
         },
 
-        addComp(){
+        addCompany(){
             const fd = new FormData();
             fd.append('name', this.name);
             fd.append('email', this.email);
             fd.append('logo', this.logo);
             fd.append('website', this.website);
 
-            let vm = this.$router;
+            let viewModelRouter = this.$router;
 
             this.$store.dispatch({
                 type:"addCompany",
                 data: fd
             }).then(res=>{
-                vm.push({path:'/company'});
+                viewModelRouter.push({path:'/company'});
             }).catch(err=>console.log(err));
 
             this.name = '';
@@ -74,6 +72,5 @@ export default {
 
         },
     },
-
 }
 </script>

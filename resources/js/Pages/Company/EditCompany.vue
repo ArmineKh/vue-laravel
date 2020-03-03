@@ -1,16 +1,16 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-
+        <div class="row justify-content-center" >
+<template  v-if = "company">
             <form @submit.prevent="edit" enctype="multipart/form-data" method="post">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" name="name" class="form-control" v-model="name">
+                    <input type="text" name="name" class="form-control" v-model="name" :placeholder="company.name">
                 </div>
 
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="text" name="email" class="form-control" v-model="email">
+                    <input type="text" name="email" class="form-control"  v-model="email" :placeholder="company.email">
                 </div>
 
                 <div class="form-group">
@@ -24,34 +24,23 @@
 
                 <div class="form-group">
                     <label>Website</label>
-                    <input type="text" name="website" class="form-control" v-model="website" required>
+                    <input type="text" name="website" class="form-control" v-model="website" required :placeholder="company.website">
                 </div>
 
                 <button type="submit" class="btn btn-success">Save</button>
             </form>
+        </template>
 
         </div>
     </div>
 </template>
 
 <script>
-import {getCompany} from '../../Services/companyServices'
 
 export default {
     name: 'editCompany',
     mounted() {
-        let app = this
-        console.log(app.id)
-        getCompany(`/api/company/${app.id}/edit`).then(response =>{
-            app.name = response.data.name;
-            app.email = response.data.email;
-            app.website = response.data.website;
-        }).catch(err => console.log(err));
-        // axios.get(`/api/company/${app.$route.params.id}/edit`, app.id).then(response =>{
-        //     app.name = response.data.name;
-        //     app.email = response.data.email;
-        //     app.website = response.data.website;
-        // }).catch(err => reject(err));
+        this.$store.dispatch('getCompany', {url: `/api/company/${this.$route.params.id}/edit`, id: this.id})
     },
 
     data(){
@@ -62,6 +51,11 @@ export default {
             logo: null,
             website: '',
             errors: {}
+        }
+    },
+    computed:{
+        company(){
+            return this.$store.getters.getCompany;
         }
     },
     methods: {
@@ -78,10 +72,11 @@ export default {
             fd.append('website', this.website);
             fd.append('_method', 'put');
 
-            let self = this.$router;
+            let viewModelRouter = this.$router;
+
             this.$store.dispatch('updateCompany', {data: fd, id: +this.$route.params.id})
             .then(res=>{
-                self.push({path:'/company'});
+                viewModelRouter.push({path:'/company'});
             }).catch(err=>console.log(err))
 
         }

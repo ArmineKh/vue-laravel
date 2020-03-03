@@ -49,13 +49,13 @@ export default {
                 phone: this.phone,
             };
 
-            let vm = this.$router;
+            let viewModelRouter = this.$router;
             this.$store.dispatch({
                 type: 'addEmploye',
                 data: fd
             })
             .then(res=>{
-                vm.push({path: '/employe'})
+                viewModelRouter.push({path: '/employe'})
             }).catch(err=>{console.log(err)})
 
             this.firstname = '';

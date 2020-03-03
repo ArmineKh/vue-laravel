@@ -16,9 +16,7 @@ import Header from '../hoc/Header.vue';
 export default {
     name: 'Main',
     components: {
-        Header,
-
+        Header
     },
-
 }
 </script>

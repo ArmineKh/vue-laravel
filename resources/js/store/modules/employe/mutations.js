@@ -14,6 +14,10 @@ export default {
 
     EDIT_EMPLOYE(state, data){
         state.employeList = data;
+    },
+
+    GET_EMPLOYE(state, payload){
+        state.currentEmploye = payload;
     }
 
 }

@@ -1,3 +1,4 @@
 export default {
-    companiesList: []
+    companiesList: [],
+    currentCompany: null
 }

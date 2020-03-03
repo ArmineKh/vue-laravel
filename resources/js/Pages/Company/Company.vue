@@ -28,9 +28,9 @@
                         <td>{{ company.email }}</td>
                         <td>{{ company.website }}</td>
                         <td>
-                            <button class = "btn btn-info" :data-id="company.id" @click="editComp">Edit</button>
+                            <button class = "btn btn-info" :data-id="company.id" @click="editCompany">Edit</button>
                         </td>
-                        <td><button  class = "btn btn-danger" :data-id="company.id"  @click="deleteComp">Delete</button></td>
+                        <td><button  class = "btn btn-danger" :data-id="company.id"  @click="deleteCompany">Delete</button></td>
                     </tr>
 
                 </table>
@@ -60,12 +60,12 @@ export default {
     },
 
     methods: {
-        deleteComp(e) {
+        deleteCompany(e) {
             const id = +e.target.getAttribute('data-id');
             this.$store.dispatch("deleteCompany", id);
         },
 
-        editComp(e) {
+        editCompany(e) {
             const id = +e.target.getAttribute('data-id');
             this.$router.push(`/company/${id}/edit`);
         }

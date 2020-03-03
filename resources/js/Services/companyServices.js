@@ -2,32 +2,66 @@ import axios from 'axios';
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 
 export function getCompanyes(url){
-    return axios.get(url);
+    return new Promise((resolve, reject)=>{
+        axios.get(url).then(res=>{
+            if (res.status == 200) {
+                resolve(res.data)
+            }
+        })
+        .catch(err=>{reject(err)})
+    })
 }
 
 export function addCompany(payload){
-    return axios.request({
-        url: '/api/company',
-        method:'POST',
-        data: payload.data,
-        config:{
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': localStorage.getItem('Token'),
+    return new Promise((resolve, reject)=>{
+        axios.request({
+            url: '/api/company',
+            method:'POST',
+            data: payload.data,
+            config:{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': localStorage.getItem('Token'),
+                }
             }
-        }
+        }).then(res=>{
+            if (res.status == 201) {
+                resolve(res.data)
+            }
+        }).catch(err=>{reject(err)})
     })
 }
 
 export function deleteCompany(id){
-    return axios.delete(`/api/company/${id}`);
+    return new Promise((resolve, reject)=>{
+        axios.delete(`/api/company/${id}`).then(res=>{
+            if (res.status == 204) {
+                resolve(res.data)
+            }
+        })
+        .catch(err=>{reject(err)})
+    })
 }
-
 
 export function updateCompany(payload){
-    return axios.post(`/api/company/${payload.id}`, payload.data)
+    return new Promise((resolve, reject)=>{
+        axios.post(`/api/company/${payload.id}`, payload.data)
+        .then(res=>{
+            if (res.status == 201) {
+                resolve(res.data)
+            }
+        })
+        .catch(err=>{reject(err)})
+    })
 }
 
-export function getCompany(url){
-    return axios.get(url);
+export function getCompany(url, id){
+    return new Promise((resolve, reject)=>{
+        axios.get(url).then(res=>{
+            if (res.status == 200) {
+                resolve(res.data)
+            }
+        }).catch(err=>{reject(err)})
+
+    })
 }

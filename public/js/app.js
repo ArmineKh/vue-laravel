@@ -1997,11 +1997,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    deleteComp: function deleteComp(e) {
+    deleteCompany: function deleteCompany(e) {
       var id = +e.target.getAttribute('data-id');
       this.$store.dispatch("deleteCompany", id);
     },
-    editComp: function editComp(e) {
+    editCompany: function editCompany(e) {
       var id = +e.target.getAttribute('data-id');
       this.$router.push("/company/".concat(id, "/edit"));
     }
@@ -2065,18 +2065,18 @@ __webpack_require__.r(__webpack_exports__);
     onFileInputChange: function onFileInputChange(e) {
       this.logo = e.target.files[0] || e.dataTransfer.files[0];
     },
-    addComp: function addComp() {
+    addCompany: function addCompany() {
       var fd = new FormData();
       fd.append('name', this.name);
       fd.append('email', this.email);
       fd.append('logo', this.logo);
       fd.append('website', this.website);
-      var vm = this.$router;
+      var viewModelRouter = this.$router;
       this.$store.dispatch({
         type: "addCompany",
         data: fd
       }).then(function (res) {
-        vm.push({
+        viewModelRouter.push({
           path: '/company'
         });
       })["catch"](function (err) {
@@ -2101,7 +2101,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Services_companyServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Services/companyServices */ "./resources/js/Services/companyServices.js");
 //
 //
 //
@@ -2138,23 +2137,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'editCompany',
   mounted: function mounted() {
-    var app = this;
-    console.log(app.id);
-    Object(_Services_companyServices__WEBPACK_IMPORTED_MODULE_0__["getCompany"])("/api/company/".concat(app.id, "/edit")).then(function (response) {
-      app.name = response.data.name;
-      app.email = response.data.email;
-      app.website = response.data.website;
-    })["catch"](function (err) {
-      return console.log(err);
-    }); // axios.get(`/api/company/${app.$route.params.id}/edit`, app.id).then(response =>{
-    //     app.name = response.data.name;
-    //     app.email = response.data.email;
-    //     app.website = response.data.website;
-    // }).catch(err => reject(err));
+    this.$store.dispatch('getCompany', {
+      url: "/api/company/".concat(this.$route.params.id, "/edit"),
+      id: this.id
+    });
   },
   data: function data() {
     return {
@@ -2165,6 +2155,11 @@ __webpack_require__.r(__webpack_exports__);
       website: '',
       errors: {}
     };
+  },
+  computed: {
+    company: function company() {
+      return this.$store.getters.getCompany;
+    }
   },
   methods: {
     onFileInputChange: function onFileInputChange(e) {
@@ -2177,12 +2172,12 @@ __webpack_require__.r(__webpack_exports__);
       fd.append('logo', this.logo);
       fd.append('website', this.website);
       fd.append('_method', 'put');
-      var self = this.$router;
+      var viewModelRouter = this.$router;
       this.$store.dispatch('updateCompany', {
         data: fd,
         id: +this.$route.params.id
       }).then(function (res) {
-        self.push({
+        viewModelRouter.push({
           path: '/company'
         });
       })["catch"](function (err) {
@@ -2284,12 +2279,12 @@ __webpack_require__.r(__webpack_exports__);
         department: this.department,
         phone: this.phone
       };
-      var vm = this.$router;
+      var viewModelRouter = this.$router;
       this.$store.dispatch({
         type: 'addEmploye',
         data: fd
       }).then(function (res) {
-        vm.push({
+        viewModelRouter.push({
           path: '/employe'
         });
       })["catch"](function (err) {
@@ -2347,14 +2342,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'editEmploye',
   mounted: function mounted() {
-    var app = this;
-    axios.get("/api/employe/".concat(app.$route.params.id, "/edit"), app.id).then(function (response) {
-      app.firstname = response.data.firstname;
-      app.lastname = response.data.lastname;
-      app.department = response.data.department;
-      app.phone = response.data.phone;
-    })["catch"](function (err) {
-      return reject(err);
+    this.$store.dispatch('getEmploye', {
+      url: "/api/employe/".concat(this.$route.params.id, "/edit"),
+      id: this.id
     });
   },
   data: function data() {
@@ -2365,6 +2355,11 @@ __webpack_require__.r(__webpack_exports__);
       department: '',
       phone: ''
     };
+  },
+  computed: {
+    employe: function employe() {
+      return this.$store.getters.getEmploye;
+    }
   },
   methods: {
     editEmp: function editEmp() {
@@ -43603,7 +43598,7 @@ var render = function() {
                     {
                       staticClass: "btn btn-info",
                       attrs: { "data-id": company.id },
-                      on: { click: _vm.editComp }
+                      on: { click: _vm.editCompany }
                     },
                     [_vm._v("Edit")]
                   )
@@ -43615,7 +43610,7 @@ var render = function() {
                     {
                       staticClass: "btn btn-danger",
                       attrs: { "data-id": company.id },
-                      on: { click: _vm.deleteComp }
+                      on: { click: _vm.deleteCompany }
                     },
                     [_vm._v("Delete")]
                   )
@@ -43681,7 +43676,7 @@ var render = function() {
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.addComp($event)
+              return _vm.addCompany($event)
             }
           }
         },
@@ -43824,132 +43819,157 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "form",
-        {
-          attrs: { enctype: "multipart/form-data", method: "post" },
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.edit($event)
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.name,
-                  expression: "name"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", name: "name" },
-              domProps: { value: _vm.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.name = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Email")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.email,
-                  expression: "email"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", name: "email" },
-              domProps: { value: _vm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.email = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Change Logo")]),
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "custom-file" }, [
-              _c("input", {
-                staticClass: "custom-file-input",
-                attrs: {
-                  type: "file",
-                  id: "inputGroupFile01",
-                  "aria-describedby": "inputGroupFileAddon01",
-                  name: "logo"
-                },
-                on: { change: _vm.onFileInputChange }
-              }),
-              _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row justify-content-center" },
+      [
+        _vm.company
+          ? [
               _c(
-                "label",
+                "form",
                 {
-                  staticClass: "custom-file-label",
-                  attrs: { for: "inputGroupFile01" }
-                },
-                [_vm._v("Choose file")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Website")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.website,
-                  expression: "website"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", name: "website", required: "" },
-              domProps: { value: _vm.website },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                  attrs: { enctype: "multipart/form-data", method: "post" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.edit($event)
+                    }
                   }
-                  _vm.website = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Save")]
-          )
-        ]
-      )
-    ])
+                },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.name,
+                          expression: "name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "name",
+                        placeholder: _vm.company.name
+                      },
+                      domProps: { value: _vm.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.name = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.email,
+                          expression: "email"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "email",
+                        placeholder: _vm.company.email
+                      },
+                      domProps: { value: _vm.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.email = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Change Logo")]),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        staticClass: "custom-file-input",
+                        attrs: {
+                          type: "file",
+                          id: "inputGroupFile01",
+                          "aria-describedby": "inputGroupFileAddon01",
+                          name: "logo"
+                        },
+                        on: { change: _vm.onFileInputChange }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-file-label",
+                          attrs: { for: "inputGroupFile01" }
+                        },
+                        [_vm._v("Choose file")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Website")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.website,
+                          expression: "website"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "website",
+                        required: "",
+                        placeholder: _vm.company.website
+                      },
+                      domProps: { value: _vm.website },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.website = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ]
+              )
+            ]
+          : _vm._e()
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []
@@ -44175,130 +44195,148 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.editEmp($event)
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("First Name")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.firstname,
-                  expression: "firstname"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", name: "firstname" },
-              domProps: { value: _vm.firstname },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.firstname = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Last Name")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.lastname,
-                  expression: "lastname"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", name: "lastname" },
-              domProps: { value: _vm.lastname },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.lastname = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Department")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.department,
-                  expression: "department"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", name: "department" },
-              domProps: { value: _vm.department },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.department = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Phone")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.phone,
-                  expression: "phone"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", name: "phone" },
-              domProps: { value: _vm.phone },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.phone = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
+    _vm.employe
+      ? _c("div", { staticClass: "row justify-content-center" }, [
           _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Save")]
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.editEmp($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("First Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.firstname,
+                      expression: "firstname"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "firstname",
+                    placeholder: _vm.employe.firstname
+                  },
+                  domProps: { value: _vm.firstname },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.firstname = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Last Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.lastname,
+                      expression: "lastname"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "lastname",
+                    placeholder: _vm.employe.lastname
+                  },
+                  domProps: { value: _vm.lastname },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.lastname = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Department")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.department,
+                      expression: "department"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "department",
+                    placeholder: _vm.employe.department
+                  },
+                  domProps: { value: _vm.department },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.department = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Phone")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.phone,
+                      expression: "phone"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "phone",
+                    placeholder: _vm.employe.phone
+                  },
+                  domProps: { value: _vm.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.phone = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-success", attrs: { type: "submit" } },
+                [_vm._v("Save")]
+              )
+            ]
           )
-        ]
-      )
-    ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -62075,29 +62113,69 @@ __webpack_require__.r(__webpack_exports__);
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 function getCompanyes(url) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url);
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (res) {
+      if (res.status == 200) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
 }
 function addCompany(payload) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.request({
-    url: '/api/company',
-    method: 'POST',
-    data: payload.data,
-    config: {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': localStorage.getItem('Token')
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.request({
+      url: '/api/company',
+      method: 'POST',
+      data: payload.data,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': localStorage.getItem('Token')
+        }
       }
-    }
+    }).then(function (res) {
+      if (res.status == 201) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
   });
 }
 function deleteCompany(id) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/company/".concat(id));
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/company/".concat(id)).then(function (res) {
+      if (res.status == 204) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
 }
 function updateCompany(payload) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/company/".concat(payload.id), payload.data);
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/company/".concat(payload.id), payload.data).then(function (res) {
+      if (res.status == 201) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
 }
-function getCompany(url) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url);
+function getCompany(url, id) {
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (res) {
+      if (res.status == 200) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
 }
 
 /***/ }),
@@ -62106,7 +62184,7 @@ function getCompany(url) {
 /*!**************************************************!*\
   !*** ./resources/js/Services/employeServices.js ***!
   \**************************************************/
-/*! exports provided: getEmployes, addEmploye, deleteEmploye, editEmploye, updateEmploye */
+/*! exports provided: getEmployes, addEmploye, deleteEmploye, updateEmploye, getEmploye */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62114,36 +62192,76 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmployes", function() { return getEmployes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEmploye", function() { return addEmploye; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteEmploye", function() { return deleteEmploye; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editEmploye", function() { return editEmploye; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateEmploye", function() { return updateEmploye; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmploye", function() { return getEmploye; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = localStorage.getItem('Token');
 function getEmployes(url) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url);
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (res) {
+      if (res.status == 200) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
 }
 function addEmploye(payload) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.request({
-    url: '/api/employe',
-    method: 'POST',
-    data: payload.data,
-    config: {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': localStorage.getItem('Token')
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.request({
+      url: '/api/employe',
+      method: 'POST',
+      data: payload.data,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': localStorage.getItem('Token')
+        }
       }
-    }
+    }).then(function (res) {
+      if (res.status == 201) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
   });
 }
 function deleteEmploye(id) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/employe/".concat(id));
-}
-function editEmploye(id) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/employe/update/".concat(id, "/"), id);
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/employe/".concat(id)).then(function (res) {
+      if (res.status == 204) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
 }
 function updateEmploye(payload) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/employe/".concat(payload.id), payload.data);
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/employe/".concat(payload.id), payload.data).then(function (res) {
+      if (res.status == 201) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
+}
+function getEmploye(url, id) {
+  return new Promise(function (resolve, reject) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (res) {
+      if (res.status == 200) {
+        resolve(res.data);
+      }
+    })["catch"](function (err) {
+      reject(err);
+    });
+  });
 }
 
 /***/ }),
@@ -62517,49 +62635,46 @@ __webpack_require__.r(__webpack_exports__);
   getCompanyes: function getCompanyes(_ref) {
     var commit = _ref.commit,
         state = _ref.state;
-    return new Promise(function (resolve, rej) {
-      _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["getCompanyes"]('/api/company').then(function (res) {
-        commit('SET_COMPANYES', res.data);
-        resolve(res.data);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["getCompanyes"]('/api/company').then(function (res) {
+      commit('SET_COMPANYES', res);
+    })["catch"](function (err) {
+      console.log(err);
     });
   },
   addCompany: function addCompany(_ref2, payload) {
     var commit = _ref2.commit,
         state = _ref2.state;
-    return new Promise(function (resolve, rej) {
-      _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["addCompany"](payload).then(function (res) {
-        commit({
-          type: 'ADD_COMPANY',
-          data: payload
-        });
-        resolve(res.data);
-      })["catch"](function (err) {
-        console.log(err);
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["addCompany"](payload).then(function (res) {
+      commit({
+        type: 'ADD_COMPANY',
+        data: payload
       });
+    })["catch"](function (err) {
+      console.log(err);
     });
   },
   deleteCompany: function deleteCompany(_ref3, id) {
     var commit = _ref3.commit;
-    return new Promise(function (resolve, rej) {
-      _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["deleteCompany"](id).then(function (res) {
-        commit('DELETE_COMPANY', id);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["deleteCompany"](id).then(function (res) {
+      commit('DELETE_COMPANY', id);
+    })["catch"](function (err) {
+      console.log(err);
     });
   },
   updateCompany: function updateCompany(_ref4, payload) {
     var commit = _ref4.commit;
-    return new Promise(function (resolve, rej) {
-      _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["updateCompany"](payload).then(function (res) {
-        commit('EDIT_COMPANY', payload);
-        resolve(res.data);
-      })["catch"](function (err) {
-        console.log(err);
-      });
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["updateCompany"](payload).then(function (res) {
+      commit('EDIT_COMPANY', payload);
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  },
+  getCompany: function getCompany(_ref5, payload) {
+    var commit = _ref5.commit;
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_1__["getCompany"](payload.url, payload.id).then(function (res) {
+      commit('GET_COMPANY', res);
+    })["catch"](function (err) {
+      return console.error(err);
     });
   }
 });
@@ -62578,6 +62693,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   getCompanyes: function getCompanyes(state) {
     return state.companiesList;
+  },
+  getCompany: function getCompany(state) {
+    return state.currentCompany;
   }
 });
 
@@ -62632,6 +62750,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   EDIT_COMPANY: function EDIT_COMPANY(state, data) {
     state.companiesList = data.data;
+  },
+  GET_COMPANY: function GET_COMPANY(state, payload) {
+    state.currentCompany = payload;
   }
 });
 
@@ -62647,7 +62768,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  companiesList: []
+  companiesList: [],
+  currentCompany: null
 });
 
 /***/ }),
@@ -62670,49 +62792,46 @@ __webpack_require__.r(__webpack_exports__);
   getEmployes: function getEmployes(_ref) {
     var commit = _ref.commit,
         state = _ref.state;
-    return new Promise(function (resolve, rej) {
-      _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["getEmployes"]('/api/employe').then(function (res) {
-        commit("SET_EMPLOYES", res.data);
-        resolve(res.data);
-      })["catch"](function (err) {
-        reject(err);
-      });
+    _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["getEmployes"]('/api/employe').then(function (res) {
+      commit("SET_EMPLOYES", res);
+    })["catch"](function (err) {
+      console.log(err);
     });
   },
   addEmploye: function addEmploye(_ref2, payload) {
     var commit = _ref2.commit,
         state = _ref2.state;
-    return new Promise(function (resolve, rej) {
-      _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["addEmploye"](payload).then(function (res) {
-        commit({
-          type: 'ADD_EMPLOYE',
-          data: payload.data
-        });
-        resolve(res.data);
-      })["catch"](function (err) {
-        reject(err);
+    _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["addEmploye"](payload).then(function (res) {
+      commit({
+        type: 'ADD_EMPLOYE',
+        data: payload.data
       });
+    })["catch"](function (err) {
+      console.log(err);
     });
   },
   deleteEmploye: function deleteEmploye(_ref3, id) {
     var commit = _ref3.commit;
-    return new Promise(function (resolve, rej) {
-      _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["deleteEmploye"](id).then(function (res) {
-        commit('DELETE_EMPLOYE', id);
-      })["catch"](function (err) {
-        reject(err);
-      });
+    _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["deleteEmploye"](id).then(function (res) {
+      commit('DELETE_EMPLOYE', id);
+    })["catch"](function (err) {
+      console.log(err);
     });
   },
   updateEmploye: function updateEmploye(_ref4, payload) {
     var commit = _ref4.commit;
-    return new Promise(function (resolve, rej) {
-      _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["updateEmploye"](payload).then(function (res) {
-        commit('EDIT_EMPLOYE', payload);
-        resolve(res.data);
-      })["catch"](function (err) {
-        reject(err);
-      });
+    _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["updateEmploye"](payload).then(function (res) {
+      commit('EDIT_EMPLOYE', payload);
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  },
+  getEmploye: function getEmploye(_ref5, payload) {
+    var commit = _ref5.commit;
+    _Services_employeServices__WEBPACK_IMPORTED_MODULE_1__["getEmploye"](payload.url, payload.id).then(function (res) {
+      commit('GET_EMPLOYE', res);
+    })["catch"](function (err) {
+      console.log(err);
     });
   }
 });
@@ -62731,6 +62850,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   employees: function employees(state) {
     return state.employeList;
+  },
+  getEmploye: function getEmploye(state) {
+    return state.currentEmploye;
   }
 });
 
@@ -62785,6 +62907,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   EDIT_EMPLOYE: function EDIT_EMPLOYE(state, data) {
     state.employeList = data;
+  },
+  GET_EMPLOYE: function GET_EMPLOYE(state, payload) {
+    state.currentEmploye = payload;
   }
 });
 
@@ -62800,7 +62925,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  employeList: []
+  employeList: [],
+  currentEmploye: null
 });
 
 /***/ }),

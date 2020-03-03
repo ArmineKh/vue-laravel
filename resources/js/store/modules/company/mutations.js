@@ -11,6 +11,10 @@ export default {
     },
     EDIT_COMPANY(state, data){
         state.companiesList = data.data;
+    },
+
+    GET_COMPANY(state, payload){
+        state.currentCompany = payload;
     }
 
 }

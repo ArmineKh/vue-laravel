@@ -1,25 +1,25 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" v-if = "employe">
             <form @submit.prevent="editEmp">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" name="firstname" class="form-control" v-model="firstname">
+                    <input type="text" name="firstname" class="form-control" v-model="firstname" :placeholder="employe.firstname">
                 </div>
 
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="lastname" class="form-control" v-model="lastname">
+                    <input type="text" name="lastname" class="form-control" v-model="lastname" :placeholder="employe.lastname">
                 </div>
 
                 <div class="form-group">
                     <label>Department</label>
-                    <input type="text" name="department" class="form-control" v-model="department">
+                    <input type="text" name="department" class="form-control" v-model="department" :placeholder="employe.department">
                 </div>
 
                 <div class="form-group">
                     <label>Phone</label>
-                    <input type="text" name="phone" class="form-control" v-model="phone">
+                    <input type="text" name="phone" class="form-control" v-model="phone" :placeholder="employe.phone">
                 </div>
 
                 <button type="submit" class="btn btn-success">Save</button>
@@ -34,13 +34,7 @@
 export default {
     name: 'editEmploye',
     mounted() {
-        let app = this
-        axios.get(`/api/employe/${app.$route.params.id}/edit`, app.id).then(response =>{
-            app.firstname = response.data.firstname;
-            app.lastname = response.data.lastname;
-            app.department = response.data.department;
-            app.phone = response.data.phone;
-        }).catch(err => reject(err));
+        this.$store.dispatch('getEmploye', {url: `/api/employe/${this.$route.params.id}/edit`, id: this.id})
     },
 
     data(){
@@ -50,6 +44,11 @@ export default {
             lastname: '',
             department: '',
             phone: '',
+        }
+    },
+    computed:{
+        employe(){
+            return this.$store.getters.getEmploye;
         }
     },
 
