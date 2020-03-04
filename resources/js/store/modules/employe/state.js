@@ -1,4 +1,5 @@
 export default {
     employeList: [],
-    currentEmploye: null
+    currentEmploye: null,
+    employeErrors: null
 }

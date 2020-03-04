@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="currentUser">
         <h1>Hallo {{ currentUser.name }} . . . welcome to your work space.</h1>
         <div class="row">
             <div class="col-sm-12">
@@ -23,7 +23,7 @@ export default {
         }
     },
 
-    methods: {
+    computed: {
         currentUser(){
             return this.$store.getters.currentUser
         }

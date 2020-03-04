@@ -15,6 +15,12 @@ export default {
 
     GET_COMPANY(state, payload){
         state.currentCompany = payload;
+    },
+    ADD_COMPANY_FAILED(state,payload){
+        state.errors = payload;
+    },
+    UPDATE_COMPANY_FAILED(state,payload){
+        state.errors = payload;
     }
 
 }

@@ -28,7 +28,7 @@ export function addCompany(payload){
             if (res.status == 201) {
                 resolve(res.data)
             }
-        }).catch(err=>{reject(err)})
+        }).catch(err=>{reject("The company didn't created.. try again later.")})
     })
 }
 
@@ -51,7 +51,7 @@ export function updateCompany(payload){
                 resolve(res.data)
             }
         })
-        .catch(err=>{reject(err)})
+        .catch(err=>{reject("The company didn't updated.. try again later.")})
     })
 }
 

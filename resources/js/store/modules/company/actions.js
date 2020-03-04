@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {router} from '../../../router.js'
 import * as companyServices from '../../../Services/companyServices';
 
 export default {
@@ -14,7 +15,12 @@ export default {
                 type:'ADD_COMPANY',
                 data: payload
             });
-        }).catch(err=>{console.log(err)})
+        }).then(res=>{
+            router.push({path:'/company'});
+        }).catch(err=>{
+            commit('ADD_COMPANY_FAILED', {err})
+        });
+
     },
 
     deleteCompany ({commit}, id){
@@ -26,7 +32,11 @@ export default {
     updateCompany({commit}, payload) {
         companyServices.updateCompany(payload).then(res=>{
             commit('EDIT_COMPANY', payload);
-        }).catch(err=>{console.log(err)})
+        }).then(res=>{
+            router.push({path:'/company'});
+        }).catch(err=>{
+            commit('UPDATE_COMPANY_FAILED', {err})
+        })
     },
 
     getCompany({commit}, payload){

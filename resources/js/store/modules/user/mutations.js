@@ -28,3 +28,4 @@ export default {
         state.reg_error = payload.error;
     },
 };
+ 

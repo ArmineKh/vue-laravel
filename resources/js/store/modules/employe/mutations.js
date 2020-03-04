@@ -18,6 +18,12 @@ export default {
 
     GET_EMPLOYE(state, payload){
         state.currentEmploye = payload;
+    },
+    ADD_EMPLOYE_FAILED(state,payload){
+        state.errors = payload;
+    },
+    UPDATE_EMPLOYE_FAILED(state,payload){
+        state.employeErrors = payload;
     }
 
 }

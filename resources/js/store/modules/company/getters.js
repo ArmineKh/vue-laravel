@@ -4,5 +4,8 @@ export default {
     },
     getCompany(state){
         return state.currentCompany
+    },
+    getErrors(state){
+        return state.errors
     }
 }

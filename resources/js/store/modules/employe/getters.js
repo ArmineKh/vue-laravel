@@ -4,5 +4,8 @@ export default {
     },
     getEmploye(state){
         return state.currentEmploye
+    },
+    getEmployeErrors(state){
+        return state.employeErrors
     }
 }

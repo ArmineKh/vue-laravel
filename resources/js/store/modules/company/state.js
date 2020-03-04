@@ -1,4 +1,5 @@
 export default {
     companiesList: [],
-    currentCompany: null
+    currentCompany: null,
+    errors: null
 }

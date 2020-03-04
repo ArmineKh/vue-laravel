@@ -1,25 +1,49 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center" v-if = "employe">
+        <div class="row justify-content-center" v-if = "getEmploye">
             <form @submit.prevent="editEmp">
+                <template v-if="getEmployeErrors">
+                    <p class="error">{{getEmployeErrors.err}}</p>
+                </template>
+
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" name="firstname" class="form-control" v-model="firstname" :placeholder="employe.firstname">
+                    <validation-provider name="firstname" rules="required">
+                        <template #default="{ errors }">
+                            <input type="text" name="firstname" class="form-control" v-model="employe.firstname" :placeholder="getEmploye.firstname">
+                            <p class="error">{{ errors[0] }}</p>
+                        </template>
+                    </validation-provider>
                 </div>
 
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="lastname" class="form-control" v-model="lastname" :placeholder="employe.lastname">
+                    <validation-provider name="lastname" rules="required">
+                        <template #default="{ errors }">
+                            <input type="text" name="lastname" class="form-control" v-model="employe.lastname" :placeholder="getEmploye.lastname">
+                            <p class="error">{{ errors[0] }}</p>
+                        </template>
+                    </validation-provider>
                 </div>
 
                 <div class="form-group">
                     <label>Department</label>
-                    <input type="text" name="department" class="form-control" v-model="department" :placeholder="employe.department">
+                    <validation-provider name="department" rules="required">
+                        <template #default="{ errors }">
+                            <input type="text" name="department" class="form-control" v-model="employe.department" :placeholder="getEmploye.department">
+                            <p class="error">{{ errors[0] }}</p>
+                        </template>
+                    </validation-provider>
                 </div>
 
                 <div class="form-group">
                     <label>Phone</label>
-                    <input type="text" name="phone" class="form-control" v-model="phone" :placeholder="employe.phone">
+                    <validation-provider name="phone" rules="required">
+                        <template #default="{ errors }">
+                            <input type="text" name="phone" class="form-control" v-model="employe.phone" :placeholder="getEmploye.phone">
+                            <p class="error">{{ errors[0] }}</p>
+                        </template>
+                    </validation-provider>
                 </div>
 
                 <button type="submit" class="btn btn-success">Save</button>
@@ -29,7 +53,7 @@
 </template>
 
 <script>
-
+import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 
 export default {
     name: 'editEmploye',
@@ -39,34 +63,45 @@ export default {
 
     data(){
         return {
-            id: this.$route.params.id,
-            firstname: '',
-            lastname: '',
-            department: '',
-            phone: '',
+            employe:{
+                id: this.$route.params.id,
+                firstname: '',
+                lastname: '',
+                department: '',
+                phone: ''
+            },
         }
     },
+    components: {
+        ValidationProvider
+    },
     computed:{
-        employe(){
+        getEmploye(){
             return this.$store.getters.getEmploye;
+        },
+        getEmployeErrors(){
+            return this.$store.getters.getEmployeErrors
         }
     },
 
     methods: {
         editEmp() {
             let data = new FormData();
-            data.append('firstname', this.firstname);
-            data.append('lastname', this.lastname);
-            data.append('department', this.department);
-            data.append('phone', this.phone);
+            for (var key in this.employe) {
+                data.append(key, this.employe[key]);
+            }
+
             data.append('_method', 'put');
 
-            let self = this.$router;
             this.$store.dispatch('updateEmploye', {data:data, id: +this.$route.params.id})
-            .then(res=>{
-                self.push({path:'/employe'});
-            }).catch(err=>console.log(err))
+
         }
     }
 }
 </script>
+<style scoped>
+.error{
+    text-align: center;
+    color: red;
+}
+</style>

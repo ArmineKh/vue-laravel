@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {router} from '../../../router.js'
 import * as employeServices from '../../../Services/employeServices';
 
 
@@ -15,7 +16,11 @@ export default {
                 type: 'ADD_EMPLOYE',
                 data: payload.data
             });
-        }).catch(err=>{console.log(err)})
+        }).then(res=>{
+            router.push({path: '/employe'})
+        }).catch(err=>{
+            commit('ADD_EMPLOYE_FAILED', {err})
+        })
     },
 
     deleteEmploye({commit}, id) {
@@ -28,8 +33,11 @@ export default {
     updateEmploye({commit}, payload) {
         employeServices.updateEmploye(payload).then(res=>{
             commit('EDIT_EMPLOYE', payload);
-        }).catch(err=>{console.log(err)})
-
+        }).then(res=>{
+            router.push({path:'/employe'});
+        }).catch(err=>{
+            commit('UPDATE_EMPLOYE_FAILED', {err})
+        })
     },
 
     getEmploye({commit}, payload){
