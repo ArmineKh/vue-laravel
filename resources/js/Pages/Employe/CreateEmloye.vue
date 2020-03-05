@@ -2,50 +2,47 @@
     <div class="container">
         <div class="row justify-content-center">
             <form @submit.prevent="addEmp" method="post">
-                <template v-if="getEmployeErrors">
-                    <p class="error">{{getEmployeErrors.err}}</p>
-                </template>
 
                 <div class="form-group">
                     <label>First Name</label>
-                    <validation-provider name="firstname" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="firstname" class="form-control" v-model="employe.firstname" >
-                            <p>{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="firstname" class="form-control" v-model="employe.firstname" >
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.firstname[0]}}</span>
+                    </div>
+                </template>
 
                 <div class="form-group">
                     <label>Last Name</label>
-                    <validation-provider name="lastname" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="lastname" class="form-control" v-model="employe.lastname" >
-                            <p>{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="lastname" class="form-control" v-model="employe.lastname" >
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.lastname[0]}}</span>
+                    </div>
+                </template>
 
 
                 <div class="form-group">
                     <label>Department</label>
-                    <validation-provider name="department" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="department" class="form-control" v-model="employe.department" >
-                            <p>{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="department" class="form-control" v-model="employe.department" >
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.department[0]}}</span>
+                    </div>
+                </template>
 
                 <div class="form-group">
                     <label>Phone</label>
-                    <validation-provider name="phone" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="phone" class="form-control" v-model="employe.phone" >
-                            <p>{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="phone" class="form-control" v-model="employe.phone" >
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.phone[0]}}</span>
+                    </div>
+                </template>
 
                 <button type="submit" class="btn btn-success">Save</button>
             </form>
@@ -54,7 +51,6 @@
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 
 
 export default {
@@ -68,12 +64,10 @@ export default {
             },
         }
     },
-    components: {
-        ValidationProvider
-    },
+
     computed:{
         getEmployeErrors(){
-            return this.$store.getters.getEmployeErrors
+            return this.$store.getters.getEmployeErrors[0]
         }
     },
 

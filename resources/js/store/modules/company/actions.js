@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../../../store'
 import {router} from '../../../router.js'
 import * as companyServices from '../../../Services/companyServices';
 
@@ -17,8 +18,12 @@ export default {
             });
         }).then(res=>{
             router.push({path:'/company'});
-        }).catch(err=>{
-            commit('ADD_COMPANY_FAILED', {err})
+        })
+        .catch(err=>{
+                if (err.response.status == 422) {
+                    let errors = err.response.data.errors
+                    commit('ADD_COMPANY_FAILED', {errors})
+                }
         });
 
     },
@@ -34,9 +39,13 @@ export default {
             commit('EDIT_COMPANY', payload);
         }).then(res=>{
             router.push({path:'/company'});
-        }).catch(err=>{
-            commit('UPDATE_COMPANY_FAILED', {err})
         })
+        .catch(err=>{
+                if (err.response.status == 422) {
+                    let errors = err.response.data.errors
+                    commit('UPDATE_COMPANY_FAILED', {errors})
+                }
+        });
     },
 
     getCompany({commit}, payload){

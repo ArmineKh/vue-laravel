@@ -17,10 +17,10 @@ export default {
         state.currentCompany = payload;
     },
     ADD_COMPANY_FAILED(state,payload){
-        state.errors = payload;
+        state.errors.push(payload);
     },
     UPDATE_COMPANY_FAILED(state,payload){
-        state.errors = payload;
+        state.errors.push(payload);
     }
 
 }

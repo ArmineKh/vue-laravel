@@ -28,7 +28,8 @@ export function addEmploye(payload){
             if (res.status == 201) {
                 resolve(res.data)
             }
-        }).catch(err=>{reject("The employe didn't created.. try again later.")})
+    }).catch(err=>{reject(err)})
+        // }).catch(err=>{reject("The employe didn't created.. try again later.")})
     })
 }
 
@@ -52,7 +53,9 @@ export function updateEmploye(payload){
                 resolve(res.data)
             }
         })
-        .catch(err=>{reject("The employe didn't updated.. try again later.")})
+        .catch(err=>{reject(err)})
+
+        // .catch(err=>{reject("The employe didn't updated.. try again later.")})
     })
 }
 

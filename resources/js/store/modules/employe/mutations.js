@@ -20,10 +20,10 @@ export default {
         state.currentEmploye = payload;
     },
     ADD_EMPLOYE_FAILED(state,payload){
-        state.errors = payload;
+        state.employeErrors.push(payload);
     },
     UPDATE_EMPLOYE_FAILED(state,payload){
-        state.employeErrors = payload;
+        state.employeErrors.push(payload);
     }
 
 }

@@ -19,7 +19,10 @@ export default {
         }).then(res=>{
             router.push({path: '/employe'})
         }).catch(err=>{
-            commit('ADD_EMPLOYE_FAILED', {err})
+            if (err.response.status == 422) {
+                let errors = err.response.data.errors
+                commit('ADD_EMPLOYE_FAILED', {errors})
+            }
         })
     },
 
@@ -36,7 +39,10 @@ export default {
         }).then(res=>{
             router.push({path:'/employe'});
         }).catch(err=>{
-            commit('UPDATE_EMPLOYE_FAILED', {err})
+            if (err.response.status == 422) {
+                let errors = err.response.data.errors
+                commit('UPDATE_EMPLOYE_FAILED', {errors})
+            }
         })
     },
 

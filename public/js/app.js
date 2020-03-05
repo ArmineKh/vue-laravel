@@ -2019,7 +2019,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate/dist/vee-validate.full.esm */ "./node_modules/vee-validate/dist/vee-validate.full.esm.js");
 //
 //
 //
@@ -2076,9 +2075,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2090,12 +2086,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  components: {
-    ValidationProvider: vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]
-  },
   computed: {
     getErrors: function getErrors() {
-      return this.$store.getters.getErrors;
+      return this.$store.getters.getErrors[0];
     }
   },
   methods: {
@@ -2132,7 +2125,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate/dist/vee-validate.full.esm */ "./node_modules/vee-validate/dist/vee-validate.full.esm.js");
 //
 //
 //
@@ -2191,10 +2183,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'editCompany',
   mounted: function mounted() {
@@ -2214,15 +2202,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  components: {
-    ValidationProvider: vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]
-  },
   computed: {
     getCompany: function getCompany() {
       return this.$store.getters.getCompany;
     },
     getErrors: function getErrors() {
-      return this.$store.getters.getErrors;
+      return this.$store.getters.getErrors[0];
     }
   },
   methods: {
@@ -2291,7 +2276,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate/dist/vee-validate.full.esm */ "./node_modules/vee-validate/dist/vee-validate.full.esm.js");
 //
 //
 //
@@ -2344,10 +2328,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2359,12 +2339,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  components: {
-    ValidationProvider: vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]
-  },
   computed: {
     getEmployeErrors: function getEmployeErrors() {
-      return this.$store.getters.getEmployeErrors;
+      return this.$store.getters.getEmployeErrors[0];
     }
   },
   methods: {
@@ -2398,7 +2375,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate/dist/vee-validate.full.esm */ "./node_modules/vee-validate/dist/vee-validate.full.esm.js");
 //
 //
 //
@@ -2450,10 +2426,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'editEmploye',
   mounted: function mounted() {
@@ -2473,15 +2445,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  components: {
-    ValidationProvider: vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]
-  },
   computed: {
     getEmploye: function getEmploye() {
       return this.$store.getters.getEmploye;
     },
     getEmployeErrors: function getEmployeErrors() {
-      return this.$store.getters.getEmployeErrors;
+      return this.$store.getters.getEmployeErrors[0];
     }
   },
   methods: {
@@ -44010,61 +43979,41 @@ var render = function() {
           }
         },
         [
-          _vm.getErrors
-            ? [
-                _c("p", { staticClass: "error" }, [
-                  _vm._v(_vm._s(_vm.getErrors.err))
-                ])
-              ]
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", [_vm._v("Name")]),
-              _vm._v(" "),
-              _c("validation-provider", {
-                attrs: { name: "name", rules: "required" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var errors = ref.errors
-                      return [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.company.name,
-                              expression: "company.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "name" },
-                          domProps: { value: _vm.company.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.company, "name", $event.target.value)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "error" }, [
-                          _vm._v(_vm._s(errors[0]))
-                        ])
-                      ]
-                    }
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Name")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.company.name,
+                  expression: "company.name"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", name: "name" },
+              domProps: { value: _vm.company.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
+                  _vm.$set(_vm.company, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm.getErrors
+            ? _vm._l(_vm.getErrors, function(error) {
+                return _c("div", [
+                  _c("span", { staticClass: "error" }, [
+                    _vm._v(_vm._s(error.name[0]))
+                  ])
                 ])
               })
-            ],
-            1
-          ),
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "div",
@@ -44072,99 +44021,81 @@ var render = function() {
             [
               _c("label", [_vm._v("Email")]),
               _vm._v(" "),
-              _c("validation-provider", {
-                attrs: { name: "email", rules: "required|email" },
-                scopedSlots: _vm._u([
+              _c("input", {
+                directives: [
                   {
-                    key: "default",
-                    fn: function(ref) {
-                      var errors = ref.errors
-                      return [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.company.email,
-                              expression: "company.email"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "email" },
-                          domProps: { value: _vm.company.email },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.company,
-                                "email",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "error" }, [
-                          _vm._v(_vm._s(errors[0]))
-                        ])
-                      ]
-                    }
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.company.email,
+                    expression: "company.email"
                   }
-                ])
-              })
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "email" },
+                domProps: { value: _vm.company.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.company, "email", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.getErrors
+                ? _vm._l(_vm.getErrors, function(error) {
+                    return _c("div", [
+                      _c("span", { staticClass: "error" }, [
+                        _vm._v(_vm._s(error.email[0]))
+                      ])
+                    ])
+                  })
+                : _vm._e()
             ],
-            1
+            2
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Logo")]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "custom-file" },
-              [
-                _c("validation-provider", {
-                  attrs: { name: "logo", rules: "required" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "default",
-                      fn: function(ref) {
-                        var errors = ref.errors
-                        return [
-                          _c("input", {
-                            staticClass: "custom-file-input",
-                            attrs: {
-                              type: "file",
-                              id: "inputGroupFile01",
-                              "aria-describedby": "inputGroupFileAddon01",
-                              name: "logo"
-                            },
-                            on: { change: _vm.onFileInputChange }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "label",
-                            {
-                              staticClass: "custom-file-label",
-                              attrs: { for: "inputGroupFile01" }
-                            },
-                            [_vm._v("Choose file")]
-                          ),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "error" }, [
-                            _vm._v(_vm._s(errors[0]))
-                          ])
-                        ]
-                      }
-                    }
-                  ])
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", [_vm._v("Logo")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  staticClass: "custom-file-input",
+                  attrs: {
+                    type: "file",
+                    id: "inputGroupFile01",
+                    "aria-describedby": "inputGroupFileAddon01",
+                    name: "logo"
+                  },
+                  on: { change: _vm.onFileInputChange }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-file-label",
+                    attrs: { for: "inputGroupFile01" }
+                  },
+                  [_vm._v("Choose file")]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.getErrors
+                ? _vm._l(_vm.getErrors, function(error) {
+                    return _c("div", [
+                      _c("span", { staticClass: "error" }, [
+                        _vm._v(_vm._s(error.logo[0]))
+                      ])
+                    ])
+                  })
+                : _vm._e()
+            ],
+            2
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -44172,50 +44103,39 @@ var render = function() {
             [
               _c("label", [_vm._v("Website")]),
               _vm._v(" "),
-              _c("validation-provider", {
-                attrs: { name: "website", rules: "required" },
-                scopedSlots: _vm._u([
+              _c("input", {
+                directives: [
                   {
-                    key: "default",
-                    fn: function(ref) {
-                      var errors = ref.errors
-                      return [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.company.website,
-                              expression: "company.website"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "website" },
-                          domProps: { value: _vm.company.website },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.company,
-                                "website",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "error" }, [
-                          _vm._v(_vm._s(errors[0]))
-                        ])
-                      ]
-                    }
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.company.website,
+                    expression: "company.website"
                   }
-                ])
-              })
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "website" },
+                domProps: { value: _vm.company.website },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.company, "website", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.getErrors
+                ? _vm._l(_vm.getErrors, function(error) {
+                    return _c("div", [
+                      _c("span", { staticClass: "error" }, [
+                        _vm._v(_vm._s(error.website[0]))
+                      ])
+                    ])
+                  })
+                : _vm._e()
             ],
-            1
+            2
           ),
           _vm._v(" "),
           _c(
@@ -44270,250 +44190,166 @@ var render = function() {
                   }
                 },
                 [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.company.name,
+                          expression: "company.name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "name",
+                        placeholder: _vm.getCompany.name
+                      },
+                      domProps: { value: _vm.company.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.company, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
                   _vm.getErrors
-                    ? [
-                        _c("p", { staticClass: "error" }, [
-                          _vm._v(_vm._s(_vm.getErrors.err))
+                    ? _vm._l(_vm.getErrors, function(error) {
+                        return _c("div", [
+                          _c("span", { staticClass: "error" }, [
+                            _vm._v(_vm._s(error.name[0]))
+                          ])
                         ])
-                      ]
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.company.email,
+                          expression: "company.email"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "email",
+                        placeholder: _vm.getCompany.email
+                      },
+                      domProps: { value: _vm.company.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.company, "email", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm.getErrors
+                    ? _vm._l(_vm.getErrors, function(error) {
+                        return _c("div", [
+                          _c("span", { staticClass: "error" }, [
+                            _vm._v(_vm._s(error.email[0]))
+                          ])
+                        ])
+                      })
                     : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "form-group" },
                     [
-                      _c("label", [_vm._v("Name")]),
+                      _c("label", [_vm._v("Logo")]),
                       _vm._v(" "),
-                      _c("validation-provider", {
-                        attrs: { name: "name", rules: "required" },
-                        scopedSlots: _vm._u(
-                          [
-                            {
-                              key: "default",
-                              fn: function(ref) {
-                                var errors = ref.errors
-                                return [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.company.name,
-                                        expression: "company.name"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      name: "name",
-                                      placeholder: _vm.getCompany.name
-                                    },
-                                    domProps: { value: _vm.company.name },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.company,
-                                          "name",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("p", { staticClass: "error" }, [
-                                    _vm._v(_vm._s(errors[0]))
-                                  ])
-                                ]
-                              }
-                            }
-                          ],
-                          null,
-                          false,
-                          3430377314
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          staticClass: "custom-file-input",
+                          attrs: {
+                            type: "file",
+                            id: "inputGroupFile01",
+                            "aria-describedby": "inputGroupFileAddon01",
+                            name: "logo"
+                          },
+                          on: { change: _vm.onFileInputChange }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-file-label",
+                            attrs: { for: "inputGroupFile01" }
+                          },
+                          [_vm._v("Choose file")]
                         )
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", [_vm._v("Email")]),
+                      ]),
                       _vm._v(" "),
-                      _c("validation-provider", {
-                        attrs: { name: "email", rules: "required|email" },
-                        scopedSlots: _vm._u(
-                          [
-                            {
-                              key: "default",
-                              fn: function(ref) {
-                                var errors = ref.errors
-                                return [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.company.email,
-                                        expression: "company.email"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      name: "email",
-                                      placeholder: _vm.getCompany.email
-                                    },
-                                    domProps: { value: _vm.company.email },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.company,
-                                          "email",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("p", { staticClass: "error" }, [
-                                    _vm._v(_vm._s(errors[0]))
-                                  ])
-                                ]
-                              }
-                            }
-                          ],
-                          null,
-                          false,
-                          1925805154
-                        )
-                      })
+                      _vm.getErrors
+                        ? _vm._l(_vm.getErrors, function(error) {
+                            return _c("div", [
+                              _c("span", { staticClass: "error" }, [
+                                _vm._v(_vm._s(error.logo[0]))
+                              ])
+                            ])
+                          })
+                        : _vm._e()
                     ],
-                    1
+                    2
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Logo")]),
+                    _c("label", [_vm._v("Website")]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "custom-file" },
-                      [
-                        _c("validation-provider", {
-                          attrs: { name: "logo", rules: "required" },
-                          scopedSlots: _vm._u(
-                            [
-                              {
-                                key: "default",
-                                fn: function(ref) {
-                                  var errors = ref.errors
-                                  return [
-                                    _c("input", {
-                                      staticClass: "custom-file-input",
-                                      attrs: {
-                                        type: "file",
-                                        id: "inputGroupFile01",
-                                        "aria-describedby":
-                                          "inputGroupFileAddon01",
-                                        name: "logo"
-                                      },
-                                      on: { change: _vm.onFileInputChange }
-                                    }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "custom-file-label",
-                                        attrs: { for: "inputGroupFile01" }
-                                      },
-                                      [_vm._v("Choose file")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("p", { staticClass: "error" }, [
-                                      _vm._v(_vm._s(errors[0]))
-                                    ])
-                                  ]
-                                }
-                              }
-                            ],
-                            null,
-                            false,
-                            2144645765
-                          )
-                        })
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.company.website,
+                          expression: "company.website"
+                        }
                       ],
-                      1
-                    )
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "website",
+                        placeholder: _vm.getCompany.website
+                      },
+                      domProps: { value: _vm.company.website },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.company, "website", $event.target.value)
+                        }
+                      }
+                    })
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", [_vm._v("Website")]),
-                      _vm._v(" "),
-                      _c("validation-provider", {
-                        attrs: { name: "website", rules: "required" },
-                        scopedSlots: _vm._u(
-                          [
-                            {
-                              key: "default",
-                              fn: function(ref) {
-                                var errors = ref.errors
-                                return [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.company.website,
-                                        expression: "company.website"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      name: "website",
-                                      placeholder: _vm.getCompany.website
-                                    },
-                                    domProps: { value: _vm.company.website },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.company,
-                                          "website",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("p", { staticClass: "error" }, [
-                                    _vm._v(_vm._s(errors[0]))
-                                  ])
-                                ]
-                              }
-                            }
-                          ],
-                          null,
-                          false,
-                          3703707138
-                        )
+                  _vm.getErrors
+                    ? _vm._l(_vm.getErrors, function(error) {
+                        return _c("div", [
+                          _c("span", { staticClass: "error" }, [
+                            _vm._v(_vm._s(error.website[0]))
+                          ])
+                        ])
                       })
-                    ],
-                    1
-                  ),
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -44621,213 +44457,149 @@ var render = function() {
           }
         },
         [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("First Name")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.employe.firstname,
+                  expression: "employe.firstname"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", name: "firstname" },
+              domProps: { value: _vm.employe.firstname },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.employe, "firstname", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
           _vm.getEmployeErrors
-            ? [
-                _c("p", { staticClass: "error" }, [
-                  _vm._v(_vm._s(_vm.getEmployeErrors.err))
+            ? _vm._l(_vm.getEmployeErrors, function(error) {
+                return _c("div", [
+                  _c("span", { staticClass: "error" }, [
+                    _vm._v(_vm._s(error.firstname[0]))
+                  ])
                 ])
-              ]
+              })
             : _vm._e(),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", [_vm._v("First Name")]),
-              _vm._v(" "),
-              _c("validation-provider", {
-                attrs: { name: "firstname", rules: "required" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var errors = ref.errors
-                      return [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.employe.firstname,
-                              expression: "employe.firstname"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "firstname" },
-                          domProps: { value: _vm.employe.firstname },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.employe,
-                                "firstname",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(errors[0]))])
-                      ]
-                    }
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Last Name")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.employe.lastname,
+                  expression: "employe.lastname"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", name: "lastname" },
+              domProps: { value: _vm.employe.lastname },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                ])
-              })
-            ],
-            1
-          ),
+                  _vm.$set(_vm.employe, "lastname", $event.target.value)
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", [_vm._v("Last Name")]),
-              _vm._v(" "),
-              _c("validation-provider", {
-                attrs: { name: "lastname", rules: "required" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var errors = ref.errors
-                      return [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.employe.lastname,
-                              expression: "employe.lastname"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "lastname" },
-                          domProps: { value: _vm.employe.lastname },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.employe,
-                                "lastname",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(errors[0]))])
-                      ]
-                    }
-                  }
+          _vm.getEmployeErrors
+            ? _vm._l(_vm.getEmployeErrors, function(error) {
+                return _c("div", [
+                  _c("span", { staticClass: "error" }, [
+                    _vm._v(_vm._s(error.lastname[0]))
+                  ])
                 ])
               })
-            ],
-            1
-          ),
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", [_vm._v("Department")]),
-              _vm._v(" "),
-              _c("validation-provider", {
-                attrs: { name: "department", rules: "required" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var errors = ref.errors
-                      return [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.employe.department,
-                              expression: "employe.department"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "department" },
-                          domProps: { value: _vm.employe.department },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.employe,
-                                "department",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(errors[0]))])
-                      ]
-                    }
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Department")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.employe.department,
+                  expression: "employe.department"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", name: "department" },
+              domProps: { value: _vm.employe.department },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                ])
-              })
-            ],
-            1
-          ),
+                  _vm.$set(_vm.employe, "department", $event.target.value)
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", [_vm._v("Phone")]),
-              _vm._v(" "),
-              _c("validation-provider", {
-                attrs: { name: "phone", rules: "required" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var errors = ref.errors
-                      return [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.employe.phone,
-                              expression: "employe.phone"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", name: "phone" },
-                          domProps: { value: _vm.employe.phone },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.employe,
-                                "phone",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(errors[0]))])
-                      ]
-                    }
-                  }
+          _vm.getEmployeErrors
+            ? _vm._l(_vm.getEmployeErrors, function(error) {
+                return _c("div", [
+                  _c("span", { staticClass: "error" }, [
+                    _vm._v(_vm._s(error.department[0]))
+                  ])
                 ])
               })
-            ],
-            1
-          ),
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Phone")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.employe.phone,
+                  expression: "employe.phone"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", name: "phone" },
+              domProps: { value: _vm.employe.phone },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.employe, "phone", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm.getEmployeErrors
+            ? _vm._l(_vm.getEmployeErrors, function(error) {
+                return _c("div", [
+                  _c("span", { staticClass: "error" }, [
+                    _vm._v(_vm._s(error.phone[0]))
+                  ])
+                ])
+              })
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "button",
@@ -44876,257 +44648,165 @@ var render = function() {
               }
             },
             [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("First Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.employe.firstname,
+                      expression: "employe.firstname"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "firstname",
+                    placeholder: _vm.getEmploye.firstname
+                  },
+                  domProps: { value: _vm.employe.firstname },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.employe, "firstname", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
               _vm.getEmployeErrors
-                ? [
-                    _c("p", { staticClass: "error" }, [
-                      _vm._v(_vm._s(_vm.getEmployeErrors.err))
+                ? _vm._l(_vm.getEmployeErrors, function(error) {
+                    return _c("div", [
+                      _c("span", { staticClass: "error" }, [
+                        _vm._v(_vm._s(error.firstname[0]))
+                      ])
                     ])
-                  ]
+                  })
                 : _vm._e(),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", [_vm._v("First Name")]),
-                  _vm._v(" "),
-                  _c("validation-provider", {
-                    attrs: { name: "firstname", rules: "required" },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "default",
-                          fn: function(ref) {
-                            var errors = ref.errors
-                            return [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.employe.firstname,
-                                    expression: "employe.firstname"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "firstname",
-                                  placeholder: _vm.getEmploye.firstname
-                                },
-                                domProps: { value: _vm.employe.firstname },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.employe,
-                                      "firstname",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "error" }, [
-                                _vm._v(_vm._s(errors[0]))
-                              ])
-                            ]
-                          }
-                        }
-                      ],
-                      null,
-                      false,
-                      3755404962
-                    )
-                  })
-                ],
-                1
-              ),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Last Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.employe.lastname,
+                      expression: "employe.lastname"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "lastname",
+                    placeholder: _vm.getEmploye.lastname
+                  },
+                  domProps: { value: _vm.employe.lastname },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.employe, "lastname", $event.target.value)
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", [_vm._v("Last Name")]),
-                  _vm._v(" "),
-                  _c("validation-provider", {
-                    attrs: { name: "lastname", rules: "required" },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "default",
-                          fn: function(ref) {
-                            var errors = ref.errors
-                            return [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.employe.lastname,
-                                    expression: "employe.lastname"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "lastname",
-                                  placeholder: _vm.getEmploye.lastname
-                                },
-                                domProps: { value: _vm.employe.lastname },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.employe,
-                                      "lastname",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "error" }, [
-                                _vm._v(_vm._s(errors[0]))
-                              ])
-                            ]
-                          }
-                        }
-                      ],
-                      null,
-                      false,
-                      3470222914
-                    )
+              _vm.getEmployeErrors
+                ? _vm._l(_vm.getEmployeErrors, function(error) {
+                    return _c("div", [
+                      _c("span", { staticClass: "error" }, [
+                        _vm._v(_vm._s(error.lastname[0]))
+                      ])
+                    ])
                   })
-                ],
-                1
-              ),
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", [_vm._v("Department")]),
-                  _vm._v(" "),
-                  _c("validation-provider", {
-                    attrs: { name: "department", rules: "required" },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "default",
-                          fn: function(ref) {
-                            var errors = ref.errors
-                            return [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.employe.department,
-                                    expression: "employe.department"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "department",
-                                  placeholder: _vm.getEmploye.department
-                                },
-                                domProps: { value: _vm.employe.department },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.employe,
-                                      "department",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "error" }, [
-                                _vm._v(_vm._s(errors[0]))
-                              ])
-                            ]
-                          }
-                        }
-                      ],
-                      null,
-                      false,
-                      4210920770
-                    )
-                  })
-                ],
-                1
-              ),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Department")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.employe.department,
+                      expression: "employe.department"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "department",
+                    placeholder: _vm.getEmploye.department
+                  },
+                  domProps: { value: _vm.employe.department },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.employe, "department", $event.target.value)
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", [_vm._v("Phone")]),
-                  _vm._v(" "),
-                  _c("validation-provider", {
-                    attrs: { name: "phone", rules: "required" },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "default",
-                          fn: function(ref) {
-                            var errors = ref.errors
-                            return [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.employe.phone,
-                                    expression: "employe.phone"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  name: "phone",
-                                  placeholder: _vm.getEmploye.phone
-                                },
-                                domProps: { value: _vm.employe.phone },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.employe,
-                                      "phone",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "error" }, [
-                                _vm._v(_vm._s(errors[0]))
-                              ])
-                            ]
-                          }
-                        }
-                      ],
-                      null,
-                      false,
-                      1868181762
-                    )
+              _vm.getEmployeErrors
+                ? _vm._l(_vm.getEmployeErrors, function(error) {
+                    return _c("div", [
+                      _c("span", { staticClass: "error" }, [
+                        _vm._v(_vm._s(error.department[0]))
+                      ])
+                    ])
                   })
-                ],
-                1
-              ),
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v("Phone")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.employe.phone,
+                      expression: "employe.phone"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "phone",
+                    placeholder: _vm.getEmploye.phone
+                  },
+                  domProps: { value: _vm.employe.phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.employe, "phone", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _vm.getEmployeErrors
+                ? _vm._l(_vm.getEmployeErrors, function(error) {
+                    return _c("div", [
+                      _c("span", { staticClass: "error" }, [
+                        _vm._v(_vm._s(error.phone[0]))
+                      ])
+                    ])
+                  })
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "button",
@@ -63031,8 +62711,8 @@ function addCompany(payload) {
         resolve(res.data);
       }
     })["catch"](function (err) {
-      reject("The company didn't created.. try again later.");
-    });
+      reject(err);
+    }); // }).catch(err=>{reject("The company didn't created.. try again later.")})
   });
 }
 function deleteCompany(id) {
@@ -63053,8 +62733,8 @@ function updateCompany(payload) {
         resolve(res.data);
       }
     })["catch"](function (err) {
-      reject("The company didn't updated.. try again later.");
-    });
+      reject(err);
+    }); // .catch(err=>{reject("The company didn't updated.. try again later.")})
   });
 }
 function getCompany(url, id) {
@@ -63117,8 +62797,8 @@ function addEmploye(payload) {
         resolve(res.data);
       }
     })["catch"](function (err) {
-      reject("The employe didn't created.. try again later.");
-    });
+      reject(err);
+    }); // }).catch(err=>{reject("The employe didn't created.. try again later.")})
   });
 }
 function deleteEmploye(id) {
@@ -63139,8 +62819,8 @@ function updateEmploye(payload) {
         resolve(res.data);
       }
     })["catch"](function (err) {
-      reject("The employe didn't updated.. try again later.");
-    });
+      reject(err);
+    }); // .catch(err=>{reject("The employe didn't updated.. try again later.")})
   });
 }
 function getEmploye(url, id) {
@@ -63519,8 +63199,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../router.js */ "./resources/js/router.js");
-/* harmony import */ var _Services_companyServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Services/companyServices */ "./resources/js/Services/companyServices.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../store */ "./resources/js/store/index.js");
+/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../router.js */ "./resources/js/router.js");
+/* harmony import */ var _Services_companyServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../Services/companyServices */ "./resources/js/Services/companyServices.js");
+
 
 
 
@@ -63528,7 +63210,7 @@ __webpack_require__.r(__webpack_exports__);
   getCompanyes: function getCompanyes(_ref) {
     var commit = _ref.commit,
         state = _ref.state;
-    _Services_companyServices__WEBPACK_IMPORTED_MODULE_2__["getCompanyes"]('/api/company').then(function (res) {
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_3__["getCompanyes"]('/api/company').then(function (res) {
       commit('SET_COMPANYES', res);
     })["catch"](function (err) {
       console.log(err);
@@ -63537,24 +63219,27 @@ __webpack_require__.r(__webpack_exports__);
   addCompany: function addCompany(_ref2, payload) {
     var commit = _ref2.commit,
         state = _ref2.state;
-    _Services_companyServices__WEBPACK_IMPORTED_MODULE_2__["addCompany"](payload).then(function (res) {
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_3__["addCompany"](payload).then(function (res) {
       commit({
         type: 'ADD_COMPANY',
         data: payload
       });
     }).then(function (res) {
-      _router_js__WEBPACK_IMPORTED_MODULE_1__["router"].push({
+      _router_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
         path: '/company'
       });
     })["catch"](function (err) {
-      commit('ADD_COMPANY_FAILED', {
-        err: err
-      });
+      if (err.response.status == 422) {
+        var errors = err.response.data.errors;
+        commit('ADD_COMPANY_FAILED', {
+          errors: errors
+        });
+      }
     });
   },
   deleteCompany: function deleteCompany(_ref3, id) {
     var commit = _ref3.commit;
-    _Services_companyServices__WEBPACK_IMPORTED_MODULE_2__["deleteCompany"](id).then(function (res) {
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_3__["deleteCompany"](id).then(function (res) {
       commit('DELETE_COMPANY', id);
     })["catch"](function (err) {
       console.log(err);
@@ -63562,21 +63247,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   updateCompany: function updateCompany(_ref4, payload) {
     var commit = _ref4.commit;
-    _Services_companyServices__WEBPACK_IMPORTED_MODULE_2__["updateCompany"](payload).then(function (res) {
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_3__["updateCompany"](payload).then(function (res) {
       commit('EDIT_COMPANY', payload);
     }).then(function (res) {
-      _router_js__WEBPACK_IMPORTED_MODULE_1__["router"].push({
+      _router_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
         path: '/company'
       });
     })["catch"](function (err) {
-      commit('UPDATE_COMPANY_FAILED', {
-        err: err
-      });
+      if (err.response.status == 422) {
+        var errors = err.response.data.errors;
+        commit('UPDATE_COMPANY_FAILED', {
+          errors: errors
+        });
+      }
     });
   },
   getCompany: function getCompany(_ref5, payload) {
     var commit = _ref5.commit;
-    _Services_companyServices__WEBPACK_IMPORTED_MODULE_2__["getCompany"](payload.url, payload.id).then(function (res) {
+    _Services_companyServices__WEBPACK_IMPORTED_MODULE_3__["getCompany"](payload.url, payload.id).then(function (res) {
       commit('GET_COMPANY', res);
     })["catch"](function (err) {
       return console.error(err);
@@ -63663,10 +63351,10 @@ __webpack_require__.r(__webpack_exports__);
     state.currentCompany = payload;
   },
   ADD_COMPANY_FAILED: function ADD_COMPANY_FAILED(state, payload) {
-    state.errors = payload;
+    state.errors.push(payload);
   },
   UPDATE_COMPANY_FAILED: function UPDATE_COMPANY_FAILED(state, payload) {
-    state.errors = payload;
+    state.errors.push(payload);
   }
 });
 
@@ -63684,7 +63372,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   companiesList: [],
   currentCompany: null,
-  errors: null
+  errors: []
 });
 
 /***/ }),
@@ -63728,9 +63416,12 @@ __webpack_require__.r(__webpack_exports__);
         path: '/employe'
       });
     })["catch"](function (err) {
-      commit('ADD_EMPLOYE_FAILED', {
-        err: err
-      });
+      if (err.response.status == 422) {
+        var errors = err.response.data.errors;
+        commit('ADD_EMPLOYE_FAILED', {
+          errors: errors
+        });
+      }
     });
   },
   deleteEmploye: function deleteEmploye(_ref3, id) {
@@ -63750,9 +63441,12 @@ __webpack_require__.r(__webpack_exports__);
         path: '/employe'
       });
     })["catch"](function (err) {
-      commit('UPDATE_EMPLOYE_FAILED', {
-        err: err
-      });
+      if (err.response.status == 422) {
+        var errors = err.response.data.errors;
+        commit('UPDATE_EMPLOYE_FAILED', {
+          errors: errors
+        });
+      }
     });
   },
   getEmploye: function getEmploye(_ref5, payload) {
@@ -63844,10 +63538,10 @@ __webpack_require__.r(__webpack_exports__);
     state.currentEmploye = payload;
   },
   ADD_EMPLOYE_FAILED: function ADD_EMPLOYE_FAILED(state, payload) {
-    state.errors = payload;
+    state.employeErrors.push(payload);
   },
   UPDATE_EMPLOYE_FAILED: function UPDATE_EMPLOYE_FAILED(state, payload) {
-    state.employeErrors = payload;
+    state.employeErrors.push(payload);
   }
 });
 
@@ -63865,7 +63559,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   employeList: [],
   currentEmploye: null,
-  employeErrors: null
+  employeErrors: []
 });
 
 /***/ }),

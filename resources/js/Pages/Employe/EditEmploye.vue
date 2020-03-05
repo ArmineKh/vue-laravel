@@ -2,49 +2,46 @@
     <div class="container">
         <div class="row justify-content-center" v-if = "getEmploye">
             <form @submit.prevent="editEmp">
-                <template v-if="getEmployeErrors">
-                    <p class="error">{{getEmployeErrors.err}}</p>
-                </template>
 
                 <div class="form-group">
                     <label>First Name</label>
-                    <validation-provider name="firstname" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="firstname" class="form-control" v-model="employe.firstname" :placeholder="getEmploye.firstname">
-                            <p class="error">{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="firstname" class="form-control" v-model="employe.firstname" :placeholder="getEmploye.firstname">
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.firstname[0]}}</span>
+                    </div>
+                </template>
 
                 <div class="form-group">
                     <label>Last Name</label>
-                    <validation-provider name="lastname" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="lastname" class="form-control" v-model="employe.lastname" :placeholder="getEmploye.lastname">
-                            <p class="error">{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="lastname" class="form-control" v-model="employe.lastname" :placeholder="getEmploye.lastname">
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.lastname[0]}}</span>
+                    </div>
+                </template>
 
                 <div class="form-group">
                     <label>Department</label>
-                    <validation-provider name="department" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="department" class="form-control" v-model="employe.department" :placeholder="getEmploye.department">
-                            <p class="error">{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="department" class="form-control" v-model="employe.department" :placeholder="getEmploye.department">
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.department[0]}}</span>
+                    </div>
+                </template>
 
                 <div class="form-group">
                     <label>Phone</label>
-                    <validation-provider name="phone" rules="required">
-                        <template #default="{ errors }">
-                            <input type="text" name="phone" class="form-control" v-model="employe.phone" :placeholder="getEmploye.phone">
-                            <p class="error">{{ errors[0] }}</p>
-                        </template>
-                    </validation-provider>
+                    <input type="text" name="phone" class="form-control" v-model="employe.phone" :placeholder="getEmploye.phone">
                 </div>
+                <template v-if="getEmployeErrors">
+                    <div v-for = "error in getEmployeErrors">
+                        <span class="error">{{error.phone[0]}}</span>
+                    </div>
+                </template>
 
                 <button type="submit" class="btn btn-success">Save</button>
             </form>
@@ -53,7 +50,6 @@
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 
 export default {
     name: 'editEmploye',
@@ -72,15 +68,13 @@ export default {
             },
         }
     },
-    components: {
-        ValidationProvider
-    },
+
     computed:{
         getEmploye(){
             return this.$store.getters.getEmploye;
         },
         getEmployeErrors(){
-            return this.$store.getters.getEmployeErrors
+            return this.$store.getters.getEmployeErrors[0]
         }
     },
 

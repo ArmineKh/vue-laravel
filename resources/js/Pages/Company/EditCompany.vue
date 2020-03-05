@@ -3,53 +3,50 @@
         <div class="row justify-content-center" >
             <template  v-if = "getCompany">
                 <form @submit.prevent="edit" enctype="multipart/form-data" method="post">
-                    <template v-if="getErrors">
-                        <p class="error">{{getErrors.err}}</p>
-                    </template>
 
                     <div class="form-group">
                         <label>Name</label>
-                        <validation-provider name="name" rules="required">
-                            <template #default="{ errors }">
-                                <input type="text" name="name" class="form-control"  v-model="company.name" :placeholder="getCompany.name">
-                                <p class="error">{{ errors[0] }}</p>
-                            </template>
-                        </validation-provider>
+                        <input type="text" name="name" class="form-control"  v-model="company.name" :placeholder="getCompany.name">
                     </div>
+                    <template v-if="getErrors">
+                        <div v-for = "error in getErrors">
+                            <span class="error">{{error.name[0]}}</span>
+                        </div>
+                    </template>
 
                     <div class="form-group">
                         <label>Email</label>
-                        <validation-provider name="email" rules="required|email">
-                            <template #default="{ errors }">
-                                <input type="text" name="email" class="form-control" v-model="company.email" :placeholder="getCompany.email">
-                                <p class="error">{{ errors[0] }}</p>
-                            </template>
-                        </validation-provider>
+                        <input type="text" name="email" class="form-control" v-model="company.email" :placeholder="getCompany.email">
                     </div>
+                    <template v-if="getErrors">
+                        <div v-for = "error in getErrors">
+                            <span class="error">{{error.email[0]}}</span>
+                        </div>
+                    </template>
 
                     <div class="form-group">
                         <label>Logo</label>
                         <div class="custom-file">
-                            <validation-provider name="logo" rules="required">
-                                <template #default="{ errors }">
-                                    <input type="file"  class="custom-file-input" id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01" name="logo"  v-on:change="onFileInputChange" >
-                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    <p class="error">{{ errors[0] }}</p>
-                                </template>
-                            </validation-provider>
+                            <input type="file"  class="custom-file-input" id="inputGroupFile01"
+                            aria-describedby="inputGroupFileAddon01" name="logo"  v-on:change="onFileInputChange" >
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
+                        <template v-if="getErrors">
+                            <div v-for = "error in getErrors">
+                                <span class="error">{{error.logo[0]}}</span>
+                            </div>
+                        </template>
                     </div>
 
                     <div class="form-group">
                         <label>Website</label>
-                        <validation-provider name="website" rules="required">
-                            <template #default="{ errors }">
-                                <input type="text" name="website" class="form-control" v-model="company.website" :placeholder="getCompany.website">
-                                <p class="error">{{ errors[0] }}</p>
-                            </template>
-                        </validation-provider>
+                        <input type="text" name="website" class="form-control" v-model="company.website" :placeholder="getCompany.website">
                     </div>
+                    <template v-if="getErrors">
+                        <div v-for = "error in getErrors">
+                            <span class="error">{{error.website[0]}}</span>
+                        </div>
+                    </template>
 
                     <button type="submit" class="btn btn-success">Save</button>
                 </form>
@@ -60,7 +57,6 @@
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate/dist/vee-validate.full.esm';
 
 export default {
     name: 'editCompany',
@@ -79,15 +75,13 @@ export default {
             },
         }
     },
-    components: {
-        ValidationProvider
-    },
+
     computed:{
         getCompany(){
             return this.$store.getters.getCompany;
         },
         getErrors(){
-            return this.$store.getters.getErrors
+            return this.$store.getters.getErrors[0]
         }
     },
     methods: {
